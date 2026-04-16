@@ -1,0 +1,28 @@
+{{define "error"}}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title data-i18n="page.error.title">Go REST Template</title>
+        {{template "head" .}}
+    </head>
+    <body class="page-status" data-page="error">
+    {{template "preferences" .}}
+    {{template "header-bar" .}}
+
+    <main class="page-shell page-shell-centered">
+        <section class="status-card">
+            {{ if and .ErrorTitle .ErrorDescription }}
+                <h1>{{.ErrorTitle}}</h1>
+                <p>{{.ErrorDescription}}</p>
+            {{ else }}
+                <h1 data-i18n="error.defaultTitle">Error</h1>
+                <p data-i18n="error.defaultDescription">Something went wrong.</p>
+            {{ end }}
+            <button onclick="goHome()" class="error-btn-home" type="button" data-i18n-title="error.goHome" data-i18n-aria-label="error.goHome">
+                <span class="btn-icon ui-icon-mask ui-icon-home" aria-hidden="true"></span>
+            </button>
+        </section>
+    </main>
+    </body>
+    </html>
+{{end}}

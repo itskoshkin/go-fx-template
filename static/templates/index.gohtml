@@ -1,0 +1,210 @@
+{{define "index"}}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title data-i18n="page.items.title">Items</title>
+        {{template "head" .}}
+    </head>
+    <body class="page-dashboard" data-page="dashboard">
+    {{template "preferences" .}}
+    <header class="site-header">
+        <div class="site-header-inner">
+            <a class="site-header-brand" href="/">Go REST Template</a>
+
+            <div class="site-header-nav" aria-label="Dashboard actions" data-i18n-aria-label="dashboard.actions">
+                <button id="open-profile-modal-btn" class="site-header-icon-btn" type="button" aria-label="Profile" title="Profile" data-i18n-aria-label="profile.account" data-i18n-title="profile.account">
+                    <span class="site-header-icon ui-icon-mask ui-icon-profile" aria-hidden="true"></span>
+                </button>
+
+                <button id="logout-btn" class="site-header-icon-btn site-header-icon-btn-danger" type="button" aria-label="Log Out" title="Log Out" data-i18n-aria-label="auth.logout" data-i18n-title="auth.logout">
+                    <span class="site-header-icon ui-icon-mask ui-icon-logout" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <section class="panel">
+            <div class="items-toolbar">
+                <div class="items-toolbar-title">
+                    <h1 data-i18n="dashboard.items">Items</h1>
+                    <p id="items-summary" class="items-summary" data-i18n="dashboard.loadingItems">Loading items...</p>
+                </div>
+
+                <div class="items-toolbar-actions">
+                    <button id="open-create-item-modal-btn" class="action-btn" type="button" data-i18n="dashboard.newItem">New Item</button>
+                </div>
+            </div>
+
+            <div class="items-toolbar items-toolbar-secondary">
+                <form id="items-controls-form" class="pagination-controls">
+                    <label class="pagination-field" for="items-page">
+                        <span class="field-block" data-i18n="dashboard.page">Page</span>
+                        <input id="items-page" name="page" class="text-field" type="number" min="1" value="1">
+                    </label>
+
+                    <label class="pagination-field" for="items-limit">
+                        <span class="field-block" data-i18n="dashboard.limit">Limit</span>
+                        <input id="items-limit" name="limit" class="text-field" type="number" min="1" max="100" value="10">
+                    </label>
+
+                    <button class="ghost-btn" type="submit" data-i18n="dashboard.apply">Apply</button>
+                </form>
+
+                <p id="dashboard-status" class="form-status" aria-live="polite"></p>
+            </div>
+
+            <div id="items-list" class="item-list">
+                <p class="empty-state" data-i18n="dashboard.loadingItems">Loading items...</p>
+            </div>
+
+            <nav class="items-pagination" aria-label="Items pages" data-i18n-aria-label="dashboard.items">
+                <button id="prev-page-btn" class="ghost-btn pagination-arrow" type="button" aria-label="Previous page" title="Previous page" data-i18n-aria-label="dashboard.previousPage"
+                        data-i18n-title="dashboard.previousPage">&lt;
+                </button>
+                <div id="items-pagination-pages" class="pagination-pages"></div>
+                <button id="next-page-btn" class="ghost-btn pagination-arrow" type="button" aria-label="Next page" title="Next page" data-i18n-aria-label="dashboard.nextPage" data-i18n-title="dashboard.nextPage">&gt;
+                </button>
+            </nav>
+        </section>
+    </main>
+
+    <div id="dashboard-toast" class="dashboard-toast" aria-live="polite" hidden></div>
+
+    <dialog id="item-modal" class="modal">
+        <div class="modal-surface">
+            <div class="modal-header">
+                <div>
+                    <p id="item-modal-mode-label" class="modal-title-strong modal-title-caps">Create</p>
+                    <h2 id="item-modal-title" hidden>New Item</h2>
+                </div>
+
+                <button id="close-item-modal-btn" class="ghost-btn modal-close-btn" type="button" aria-label="Close item modal" title="Close" data-i18n-aria-label="common.close" data-i18n-title="common.close">&#215;
+                </button>
+            </div>
+
+            <form id="item-form" class="stack-form item-form">
+                <input id="item-id" name="item_id" type="hidden">
+
+                <div class="profile-avatar-row item-image-row">
+                    <div class="profile-avatar-shell">
+                        <button id="item-image-picker-btn" class="profile-avatar-button" type="button" aria-label="Upload image" title="Upload image" data-i18n-aria-label="item.uploadImage"
+                                data-i18n-title="item.uploadImage">
+                            <img id="item-image-preview" class="profile-avatar-image" src="" alt="Current item image" data-i18n-alt="item.currentImage" hidden>
+                        </button>
+
+                        <button id="remove-item-image-btn" class="ghost-btn ghost-btn-danger profile-avatar-delete-btn" type="button" aria-label="Remove image" title="Remove image" hidden
+                                data-i18n-aria-label="item.delete" data-i18n-title="item.delete">&times;
+                        </button>
+                    </div>
+
+                    <input id="item-image-file" name="image" class="file-field" type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+                </div>
+
+                <div class="item-field-list">
+                    <div class="item-field-group">
+                        <label class="field-block" for="item-title" data-i18n="item.title">Title</label>
+                        <input id="item-title" name="title" class="text-field" type="text" required>
+                    </div>
+
+                    <div class="item-field-group">
+                        <label class="field-block" for="item-description" data-i18n="item.description">Description</label>
+                        <textarea id="item-description" name="description" class="text-area" rows="5"></textarea>
+                    </div>
+                </div>
+
+                <div class="button-row item-form-actions">
+                    <button class="action-btn" type="submit" data-i18n="item.save">Save</button>
+                    <button id="delete-item-btn" class="ghost-btn ghost-btn-danger" type="button" hidden data-i18n="item.delete">Delete</button>
+                </div>
+
+                <p id="item-modal-status" class="form-status" aria-live="polite"></p>
+            </form>
+        </div>
+    </dialog>
+
+    <dialog id="delete-item-confirm-modal" class="modal modal-compact">
+        <div class="modal-surface">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title-strong" data-i18n="item.confirmDeleteTitle">Delete Item</h2>
+                </div>
+
+                <button id="close-delete-item-confirm-modal-btn" class="ghost-btn modal-close-btn" type="button" aria-label="Close delete item modal" title="Close" data-i18n-aria-label="common.close"
+                        data-i18n-title="common.close">&#215;
+                </button>
+            </div>
+
+            <p data-i18n="item.confirmDeleteMessage">Delete this item permanently?</p>
+
+            <div class="button-row confirm-modal-actions">
+                <button id="cancel-delete-item-btn" class="ghost-btn" type="button" data-i18n="common.cancel">Cancel</button>
+                <button id="confirm-delete-item-btn" class="ghost-btn ghost-btn-danger" type="button" data-i18n="item.delete">Delete</button>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="profile-modal" class="modal modal-wide">
+        <div class="modal-surface">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title-strong" data-i18n="profile.account">Account</h2>
+                </div>
+
+                <button id="close-profile-modal-btn" class="ghost-btn modal-close-btn" type="button" aria-label="Close account modal" title="Close" data-i18n-aria-label="common.close" data-i18n-title="common.close">
+                    &#215;
+                </button>
+            </div>
+
+            <form id="profile-form" class="stack-form profile-form">
+                <div class="profile-avatar-row">
+                    <div class="profile-avatar-shell">
+                        <button id="avatar-picker-btn" class="profile-avatar-button" type="button" aria-label="Upload avatar" title="Upload avatar" data-i18n-aria-label="profile.uploadAvatar"
+                                data-i18n-title="profile.uploadAvatar">
+                            <img id="avatar-placeholder" class="profile-avatar-placeholder" src="/static/assets/icons/avatar.svg" alt="No avatar" data-i18n-alt="profile.noAvatar">
+                            <img id="avatar-preview" class="profile-avatar-image" src="" alt="Current avatar" data-i18n-alt="profile.currentAvatar" hidden>
+                        </button>
+
+                        <button id="delete-avatar-btn" class="ghost-btn ghost-btn-danger profile-avatar-delete-btn" type="button" aria-label="Delete avatar" title="Delete avatar" hidden data-i18n-aria-label="item.delete"
+                                data-i18n-title="item.delete">&times;
+                        </button>
+                    </div>
+
+                    <input id="avatar-file" name="avatar" class="file-field" type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+                </div>
+
+                <div class="profile-field-list">
+                    <div class="profile-field-group">
+                        <label class="field-block" for="profile-name" data-i18n="profile.name">Name</label>
+                        <input id="profile-name" name="name" class="text-field" type="text" autocomplete="name">
+                    </div>
+
+                    <div class="profile-field-group">
+                        <label class="field-block" for="profile-username" data-i18n="profile.username">Username</label>
+                        <input id="profile-username" name="username" class="text-field" type="text" autocomplete="username">
+                    </div>
+
+                    <div class="profile-field-group">
+                        <label class="field-block" for="profile-email" data-i18n="profile.email">Email</label>
+                        <input id="profile-email" name="email" class="text-field" type="email" autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="profile-form-actions">
+                    <button class="action-btn" type="submit" data-i18n="profile.update">Update Profile</button>
+                </div>
+
+                <p id="profile-status" class="form-status" aria-live="polite"></p>
+            </form>
+
+            <div class="modal-section profile-modal-actions">
+                <div class="button-row">
+                    <button id="open-change-password-page-btn" class="ghost-btn" type="button" data-i18n="profile.changePassword">Change Password</button>
+                    <button id="open-delete-account-page-btn" class="ghost-btn ghost-btn-danger" type="button" data-i18n="profile.deleteAccount">Delete Account</button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+    </body>
+    </html>
+{{end}}

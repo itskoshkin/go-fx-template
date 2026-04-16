@@ -1,0 +1,84 @@
+{{define "sign-in"}}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title data-i18n="page.login.title">Log In</title>
+        {{template "head" .}}
+    </head>
+    <body class="page-auth" data-page="login" data-initial-auth-view="{{.InitialAuthView}}" data-initial-forgot-password="{{if .InitialForgotPassword}}true{{else}}false{{end}}">
+    {{template "preferences" .}}
+    {{template "header-bar" .}}
+
+    <main class="page-shell page-shell-centered">
+        <section class="auth-layout auth-layout-single">
+            <section class="status-card auth-card auth-card-standalone">
+                <div class="auth-switcher">
+                    <button id="show-login-view-btn" class="tab-btn is-active" type="button" data-i18n="auth.login">Log In</button>
+                    <button id="show-register-view-btn" class="tab-btn" type="button" data-i18n="auth.register">Register</button>
+                </div>
+
+                <form id="login-form" class="stack-form">
+                    <p id="login-form-title" class="auth-form-title" hidden data-i18n="auth.formTitleLogin">Log In</p>
+
+                    <div id="login-credentials-fields" class="auth-fields">
+                        <div class="auth-field-group">
+                            <label class="field-block" for="login-username" data-i18n="auth.username">Username</label>
+                            <input id="login-username" name="username" class="text-field" type="text" autocomplete="username">
+                        </div>
+
+                        <div class="auth-field-group">
+                            <label class="field-block" for="login-password" data-i18n="auth.password">Password</label>
+                            <input id="login-password" name="password" class="text-field" type="password" autocomplete="current-password" minlength="8">
+                        </div>
+                    </div>
+
+                    <div id="forgot-password-fields" class="auth-fields" hidden>
+                        <div class="auth-field-group">
+                            <label class="field-block" for="forgot-password-email" data-i18n="auth.email">Email</label>
+                            <input id="forgot-password-email" name="email" class="text-field" type="email" autocomplete="email">
+                        </div>
+                    </div>
+
+                    <div class="button-row auth-inline-actions">
+                        <button id="login-submit-btn" class="action-btn" type="submit" data-i18n="auth.login">Log In</button>
+                        <button id="toggle-forgot-password-btn" class="ghost-btn" type="button" data-i18n="auth.forgotPassword">Forgot Password</button>
+                        <button id="back-to-login-btn" class="ghost-btn" type="button" hidden data-i18n="auth.back">Back</button>
+                    </div>
+
+                    <p id="login-status" class="form-status" aria-live="polite"></p>
+                </form>
+
+                <form id="register-form" class="stack-form" hidden>
+                    <div class="auth-fields">
+                        <div class="auth-field-group">
+                            <label class="field-block" for="register-name" data-i18n="auth.name">Name</label>
+                            <input id="register-name" name="name" class="text-field" type="text" autocomplete="name" required>
+                        </div>
+
+                        <div class="auth-field-group">
+                            <label class="field-block" for="register-username" data-i18n="auth.username">Username</label>
+                            <input id="register-username" name="username" class="text-field" type="text" autocomplete="username" required>
+                        </div>
+
+                        <div class="auth-field-group">
+                            <label class="field-block" for="register-email" data-i18n="auth.email">Email</label>
+                            <input id="register-email" name="email" class="text-field" type="email" autocomplete="email">
+                        </div>
+
+                        <div class="auth-field-group">
+                            <label class="field-block" for="register-password" data-i18n="auth.password">Password</label>
+                            <input id="register-password" name="password" class="text-field" type="password" autocomplete="new-password" minlength="8" required>
+                        </div>
+                    </div>
+
+                    <div class="button-row auth-inline-actions auth-inline-actions-single">
+                        <button class="action-btn" type="submit" data-i18n="auth.createAccount">Register</button>
+                    </div>
+                    <p id="register-status" class="form-status" aria-live="polite"></p>
+                </form>
+            </section>
+        </section>
+    </main>
+    </body>
+    </html>
+{{end}}

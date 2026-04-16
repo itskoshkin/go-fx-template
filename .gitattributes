@@ -1,0 +1,4 @@
+docs/** linguist-documentation
+*.css linguist-vendored
+*.js linguist-vendored
+assets/** linguist-vendored

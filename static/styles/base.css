@@ -1,0 +1,726 @@
+@font-face {
+    /* Register the main custom font used by the UI. */
+    font-family: 'OpenSans Regular'; /* Expose the font under a predictable family name. */
+    src: url('/static/assets/fonts/OpenSans-Regular.ttf') format('truetype'); /* Point the browser to the embedded font file. */
+    font-weight: 400; /* Declare the normal font weight for this face. */
+    font-style: normal; /* Declare the normal font style for this face. */
+}
+
+
+:root { /* Define global design tokens shared by all pages. */
+    --color-bg: #000000; /* Keep the base page background fully black. */
+    --color-surface: #0d0d0d; /* Use a slightly lifted black for cards and panels. */
+    --color-surface-strong: #151515; /* Use a stronger surface for inputs and textareas. */
+    --color-surface-soft: #111111; /* Use a softer surface for nested blocks. */
+    --color-border: rgba(255, 255, 255, 0.14); /* Use a thin white alpha border for panel edges. */
+    --color-border-strong: rgba(255, 255, 255, 0.24); /* Use a stronger border for interactive states. */
+    --color-text: #ffffff; /* Keep the main text color white. */
+    --color-text-muted: #cfcfcf; /* Use a softer text color for helper copy. */
+    --color-text-soft: #989898; /* Use a dim text color for secondary metadata. */
+    --color-success: #9bffb0; /* Use a soft green for successful states. */
+    --color-error: #ff9b9b; /* Use a soft red for error states. */
+    --color-danger: #ff6666; /* Use a stronger red for destructive controls. */
+    --color-focus: rgba(255, 255, 255, 0.7); /* Use a clear white focus ring on dark surfaces. */
+    --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.35); /* Add a soft panel shadow for depth. */
+    --radius-sm: 12px; /* Use a small radius for compact components. */
+    --radius-md: 18px; /* Use a medium radius for panels and cards. */
+    --radius-lg: 24px; /* Use a large radius for larger hero surfaces. */
+    --page-max-width: 1360px; /* Constrain the page content to a readable maximum width. */
+    --page-padding: 32px; /* Use a consistent outer page padding on large screens. */
+}
+
+
+.theme-light { /* Override shared design tokens for the light palette. */
+    --color-bg: #ffffff; /* Use a pure white page background for the light palette. */
+    --color-surface: #ffffff; /* Keep cards fully white on the light palette. */
+    --color-surface-strong: #f7f7f7; /* Use a very light gray for inputs on the light palette. */
+    --color-surface-soft: #f2f2f2; /* Use a soft neutral gray for nested surfaces. */
+    --color-border: rgba(20, 17, 13, 0.1); /* Tone borders down for the lighter palette. */
+    --color-border-strong: rgba(20, 17, 13, 0.18); /* Keep interactive outlines visible on the lighter palette. */
+    --color-text: #14110d; /* Use near-black for primary text on the light palette. */
+    --color-text-muted: #3c3c3c; /* Use a neutral dark gray for paragraph copy on the light palette. */
+    --color-text-soft: #717171; /* Use dimmer neutral gray for metadata on the light palette. */
+    --color-success: #2c7d48; /* Keep success messages readable on light backgrounds. */
+    --color-error: #9d3131; /* Keep error messages readable on light backgrounds. */
+    --color-danger: #bf3c32; /* Keep destructive controls vivid on the light palette. */
+    --color-focus: rgba(20, 17, 13, 0.55); /* Use a darker focus ring for the light palette. */
+    --shadow-soft: 0 16px 36px rgba(20, 17, 13, 0.08); /* Soften panel shadows for the brighter theme. */
+}
+
+
+.theme-dark { /* Keep an explicit dark-theme hook for scripts and future overrides. */
+    --color-bg: #000000; /* Keep the base page background fully black. */
+}
+
+
+html { /* Configure the document root sizing. */
+    font-size: 20px; /* Set a readable base font size for rem-based spacing. */
+}
+
+
+* { /* Normalize the box model for every element. */
+    box-sizing: border-box; /* Include padding and borders inside width calculations. */
+}
+
+
+body { /* Define the global page shell. */
+    margin: 0; /* Remove the default browser body margin. */
+    min-height: 100vh; /* Make every page at least one full viewport tall. */
+    background: radial-gradient(circle at top, #131313 0%, var(--color-bg) 42%); /* Add a subtle glow above the flat black base. */
+    color: var(--color-text); /* Apply the main text color globally. */
+    font-family: 'OpenSans Regular', sans-serif; /* Use the embedded font first with a sane fallback. */
+}
+
+
+.theme-light body { /* Retune the global page background for the light palette. */
+    background: #ffffff; /* Keep the light theme background clean white instead of beige. */
+}
+
+
+a { /* Configure anchor tags globally. */
+    color: inherit; /* Inherit color from the surrounding context by default. */
+    text-decoration: none; /* Remove default underlines for controlled navigation styling. */
+}
+
+
+img { /* Normalize images globally. */
+    max-width: 100%; /* Prevent images from overflowing their containers. */
+}
+
+
+button, /* Target button controls globally. */
+input, /* Target single-line form controls globally. */
+textarea { /* Target multi-line form controls globally. */
+    font: inherit; /* Keep typography consistent inside all controls. */
+}
+
+
+.site-header { /* Render the sticky top navigation bar. */
+    position: sticky; /* Keep the nav visible while the page scrolls. */
+    top: 0; /* Pin the bar to the top of the viewport. */
+    z-index: 20; /* Keep the bar above page content and cards. */
+    background: rgba(0, 0, 0, 0.86); /* Use a translucent black background for the nav. */
+    backdrop-filter: blur(14px); /* Blur the content underneath for a denser glass effect. */
+    border-bottom: 1px solid var(--color-border); /* Separate the nav from the page content. */
+}
+
+
+.theme-light .site-header { /* Retune the sticky header shell for the light palette. */
+    background: rgba(255, 255, 255, 0.92); /* Match the white page tone while keeping the glass effect. */
+}
+
+
+.site-header-inner { /* Layout the header content horizontally. */
+    width: min(calc(100% - 32px), var(--page-max-width)); /* Keep the header aligned with the main content width. */
+    margin: 0 auto; /* Center the header content block. */
+    padding: 18px 64px; /* Add breathing room around the nav items and reserve the corner FAB zone. */
+    display: flex; /* Use flexbox for the header layout. */
+    align-items: center; /* Vertically align brand and nav links. */
+    justify-content: space-between; /* Push the brand left and nav links right. */
+    gap: 24px; /* Leave breathing room between header groups. */
+}
+
+
+.site-header-brand { /* Style the project brand link. */
+    font-size: 0.95rem; /* Keep the brand slightly larger than nav links. */
+    letter-spacing: 0.08em; /* Add a restrained technical tracking. */
+    text-transform: uppercase; /* Give the brand a labeled product feel. */
+}
+
+
+.site-header-nav { /* Layout the primary nav links. */
+    display: flex; /* Use flexbox so the links wrap cleanly. */
+    flex-wrap: wrap; /* Allow the nav to wrap on smaller viewports. */
+    justify-content: flex-end; /* Keep wrapped nav rows aligned to the right. */
+    gap: 10px; /* Separate individual nav links. */
+}
+
+
+.site-header-link { /* Style each navigation link chip. */
+    padding: 10px 14px; /* Give each link a clickable hit area. */
+    border: 1px solid transparent; /* Reserve border space for hover and focus states. */
+    border-radius: 999px; /* Make the link shape pill-like. */
+    color: var(--color-text-muted); /* Tone down idle link contrast slightly. */
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease; /* Animate simple state changes without visual noise. */
+}
+
+
+.site-header-link:hover { /* Style nav links on pointer hover. */
+    border-color: var(--color-border); /* Reveal a subtle outline on hover. */
+    color: var(--color-text); /* Lift the text color to full white on hover. */
+    background: rgba(255, 255, 255, 0.04); /* Add a faint surface fill on hover. */
+}
+
+
+.site-header-link:focus-visible { /* Style nav links for keyboard focus. */
+    outline: 2px solid var(--color-focus); /* Draw a visible focus ring for keyboard users. */
+    outline-offset: 3px; /* Separate the focus ring from the chip edge. */
+}
+
+
+.preferences-fab-shell { /* Keep the two global preference FABs pinned to the viewport corners. */
+    pointer-events: none; /* Let only the FAB buttons themselves intercept pointer input. */
+}
+
+
+.preferences-fab { /* Style the fixed floating preference buttons. */
+    appearance: none; /* Remove native button styling. */
+    -webkit-appearance: none; /* Remove Safari-native button styling. */
+    position: fixed; /* Pin the preference button to the viewport. */
+    top: 18px; /* Align the preference buttons with the top header rhythm. */
+    width: 48px; /* Keep each preference button compact and circular. */
+    height: 48px; /* Match width and height for a circular silhouette. */
+    padding: 0; /* Let the centered label define the visual rhythm. */
+    border: 1px solid var(--color-border-strong); /* Outline the floating buttons clearly. */
+    border-radius: 999px; /* Keep the floating buttons perfectly round. */
+    background: rgba(13, 13, 13, 0.92); /* Use a dense glassy surface over the page background. */
+    backdrop-filter: blur(12px); /* Add blur so the FABs feel like floating glass controls. */
+    color: var(--color-text); /* Keep the label readable in both themes. */
+    display: inline-flex; /* Use flexbox to center the inner label precisely. */
+    align-items: center; /* Center the label vertically. */
+    justify-content: center; /* Center the label horizontally. */
+    font-size: 0.72rem; /* Keep the FAB label compact. */
+    letter-spacing: 0.08em; /* Add a little tracking so language labels read clearly. */
+    cursor: pointer; /* Show a pointer cursor for interactivity. */
+    box-shadow: var(--shadow-soft); /* Lift the FAB above the page chrome. */
+    pointer-events: auto; /* Re-enable pointer input on the actual floating buttons. */
+    z-index: 80; /* Keep the preference FABs above the sticky header and page content. */
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease; /* Animate simple state changes without movement. */
+}
+
+
+.ui-icon-mask { /* Render monochrome UI icons via CSS mask so they can follow currentColor. */
+    display: block; /* Remove inline layout quirks from masked icon spans. */
+    width: 100%; /* Let each masked icon fill its own sizing box. */
+    height: 100%; /* Let each masked icon fill its own sizing box. */
+    background-color: currentColor; /* Bind the icon color to the current text color. */
+    mask-repeat: no-repeat; /* Prevent the masked glyph from tiling. */
+    mask-position: center; /* Center the glyph within its box. */
+    mask-size: contain; /* Scale the glyph to fit its box cleanly. */
+    -webkit-mask-repeat: no-repeat; /* Mirror the mask behavior for Safari. */
+    -webkit-mask-position: center; /* Center the glyph within its box in Safari. */
+    -webkit-mask-size: contain; /* Scale the glyph to fit its box cleanly in Safari. */
+}
+
+
+.ui-icon-profile { /* Bind the profile icon glyph to the shared mask utility. */
+    mask-image: url('/static/assets/icons/circle-user.svg'); /* Use the profile glyph as the mask source. */
+    -webkit-mask-image: url('/static/assets/icons/circle-user.svg'); /* Use the profile glyph as the Safari mask source. */
+}
+
+
+.ui-icon-logout { /* Bind the logout icon glyph to the shared mask utility. */
+    mask-image: url('/static/assets/icons/log-out.svg'); /* Use the logout glyph as the mask source. */
+    -webkit-mask-image: url('/static/assets/icons/log-out.svg'); /* Use the logout glyph as the Safari mask source. */
+}
+
+
+.ui-icon-home { /* Bind the home icon glyph to the shared mask utility. */
+    mask-image: url('/static/assets/icons/home.svg'); /* Use the home glyph as the mask source. */
+    -webkit-mask-image: url('/static/assets/icons/home.svg'); /* Use the home glyph as the Safari mask source. */
+}
+
+
+.ui-icon-language { /* Bind the language icon glyph to the shared mask utility. */
+    mask-image: url('/static/assets/icons/languages.svg'); /* Use the language glyph as the mask source. */
+    -webkit-mask-image: url('/static/assets/icons/languages.svg'); /* Use the language glyph as the Safari mask source. */
+}
+
+
+.ui-icon-theme { /* Bind the theme icon glyph to the shared mask utility. */
+    mask-image: url('/static/assets/icons/sun-moon.svg'); /* Use the theme glyph as the mask source. */
+    -webkit-mask-image: url('/static/assets/icons/sun-moon.svg'); /* Use the theme glyph as the Safari mask source. */
+}
+
+
+.theme-light .preferences-fab { /* Retune floating buttons for the light palette. */
+    background: rgba(255, 255, 255, 0.96); /* Match the lifted white-surface palette while preserving translucency. */
+}
+
+
+.preferences-fab:hover { /* Strengthen preference FABs on hover. */
+    border-color: var(--color-text); /* Make the floating-button outline more pronounced on hover. */
+    background: rgba(255, 255, 255, 0.08); /* Add a subtle fill change on hover. */
+}
+
+
+.theme-light .preferences-fab:hover { /* Retune preference-FAB hover fill for the light palette. */
+    background: rgba(20, 17, 13, 0.05); /* Use a subtle dark tint instead of a white fill on the light palette. */
+}
+
+
+.preferences-fab:focus-visible { /* Draw a visible focus ring for keyboard access to the FABs. */
+    outline: 2px solid var(--color-focus); /* Reuse the shared focus color for the floating buttons. */
+    outline-offset: 3px; /* Separate the focus ring from the button edge. */
+}
+
+
+.preferences-fab-icon { /* Size the mask icons inside the floating preference buttons. */
+    width: 22px; /* Keep the floating-button icons compact. */
+    height: 22px; /* Keep the floating-button icons square. */
+    color: inherit; /* Let the icon follow the current button color. */
+}
+
+
+.preferences-fab-left { /* Position the language FAB at the top-left corner. */
+    left: 18px; /* Align the language FAB with the left page chrome margin. */
+}
+
+
+.preferences-fab-right { /* Position the theme FAB at the top-right corner. */
+    right: 18px; /* Align the theme FAB with the right page chrome margin. */
+}
+
+
+.preferences-modal-surface { /* Specialize the compact preference dialogs. */
+    gap: 8px; /* Tighten vertical rhythm inside the small option-picker dialogs. */
+    padding: 12px; /* Keep the popover surface compact and close to the FAB. */
+    border-radius: 18px; /* Soften the popover corners while keeping it tighter than full modals. */
+    min-width: 220px; /* Keep the popover wide enough for translated option labels. */
+    max-width: 260px; /* Prevent the popover from becoming too wide relative to the FAB. */
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.26); /* Use a lighter floating shadow than full modal dialogs. */
+}
+
+
+.preferences-option-list { /* Stack preference options vertically inside their dialog. */
+    display: flex; /* Use flexbox to stack the preference options. */
+    flex-direction: column; /* Keep each preference option on its own row. */
+    gap: 6px; /* Keep option rows compact inside the popover. */
+}
+
+
+.preferences-option-btn { /* Stretch preference options to fill the dialog width cleanly. */
+    width: 100%; /* Let preference options span the full dialog width. */
+    justify-content: flex-start; /* Keep option labels aligned to the leading edge. */
+    text-align: left; /* Align option text with the left edge for easier scanning. */
+    min-height: 44px; /* Keep the compact popover options easy to hit. */
+    padding: 0 14px; /* Add a little horizontal breathing room around option labels. */
+    border-radius: 14px; /* Make each option feel like a compact row inside the popover. */
+}
+
+
+.preferences-option-btn.is-active { /* Highlight the currently selected preference option. */
+    border-color: var(--color-text); /* Strengthen the selected option outline. */
+    background: var(--color-text); /* Fill the selected option with the primary text color. */
+    color: var(--color-bg); /* Switch the selected option label to the background color for contrast. */
+}
+
+
+.modal.preferences-modal { /* Turn preference dialogs into compact corner popovers instead of centered modals. */
+    position: fixed; /* Anchor the preference dialog directly to the viewport like the FAB. */
+    inset: auto; /* Drop the browser default dialog inset so explicit corner anchors can win. */
+    top: 72px; /* Place the popover just below the corner FAB row. */
+    right: auto; /* Reset the opposite horizontal anchor by default. */
+    bottom: auto; /* Reset the opposite vertical anchor explicitly. */
+    width: auto; /* Let the popover width be defined by its inner surface. */
+    min-width: 0; /* Cancel the shared dialog minimum width behavior. */
+    max-width: none; /* Remove shared modal width caps that are meant for large dialogs. */
+    height: auto; /* Keep the popover height driven only by its content. */
+    max-height: none; /* Remove shared modal height caps meant for centered dialogs. */
+    margin: 0; /* Remove default dialog margins so the popover hugs its target corner. */
+    z-index: 90; /* Keep the popover above the sticky header and page chrome. */
+}
+
+
+.modal.preferences-modal.preferences-modal-left { /* Align the language popover with the left FAB. */
+    left: 18px; /* Keep the language popover pinned to the same outer gutter as the FAB. */
+    right: auto; /* Ensure the left popover never inherits a right anchor. */
+}
+
+
+.modal.preferences-modal.preferences-modal-right { /* Align the theme popover with the right FAB. */
+    left: auto; /* Ensure the right popover never inherits a left anchor. */
+    right: 18px; /* Keep the theme popover pinned to the same outer gutter as the FAB. */
+}
+
+
+.preferences-modal::backdrop { /* Remove the heavy centered-modal backdrop from preference popovers. */
+    background: transparent; /* Keep the rest of the page visible while the compact popover is open. */
+    backdrop-filter: none; /* Avoid fullscreen blur for tiny preference popovers. */
+}
+
+
+.preferences-modal[data-dialog-fallback="true"][open] { /* Keep fallback preference dialogs fullscreen only for click-outside detection. */
+    align-items: flex-start; /* Pin the popover toward the top edge instead of centering it vertically. */
+    justify-content: flex-start; /* Let corner-specific rules position the popover horizontally. */
+    padding: 0; /* Remove shared modal padding so the popover aligns exactly with the FAB gutter. */
+    background: transparent; /* Avoid drawing a heavy fullscreen overlay behind the popover. */
+    backdrop-filter: none; /* Avoid fullscreen blur in fallback mode too. */
+}
+
+
+.preferences-modal.preferences-modal-right[data-dialog-fallback="true"][open] { /* Right-align the theme popover in fallback mode. */
+    justify-content: flex-end; /* Push the fallback popover toward the right FAB corner. */
+}
+
+
+.preferences-modal[data-dialog-fallback="true"][open] .preferences-modal-surface { /* Keep fallback popover content anchored directly by the dialog shell itself. */
+    margin: 0; /* Remove legacy inner offsets that push the popover away from its FAB. */
+    width: auto; /* Let the popover content define its own width in fallback mode. */
+}
+
+
+.page-shell { /* Provide the main page content wrapper. */
+    width: min(calc(100% - 32px), var(--page-max-width)); /* Keep page content aligned with the header width. */
+    margin: 0 auto; /* Center the page wrapper. */
+    padding: var(--page-padding) 0 56px; /* Add top and bottom breathing room around the content. */
+}
+
+
+.page-shell-centered { /* Center content vertically for compact status pages. */
+    min-height: calc(100vh - 90px); /* Leave room for the sticky header while filling the viewport. */
+    display: flex; /* Use flexbox to center the inner card. */
+    align-items: center; /* Center the card vertically. */
+    justify-content: center; /* Center the card horizontally. */
+}
+
+
+.hero-panel { /* Style the large intro card used on auth and dashboard pages. */
+    padding: 32px; /* Give the hero enough internal spacing for copy. */
+    margin-bottom: 24px; /* Separate the hero from the next content block. */
+    border: 1px solid var(--color-border); /* Outline the hero card. */
+    border-radius: var(--radius-lg); /* Use a softer radius for the largest surface. */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)); /* Add a subtle metallic lift to the hero surface. */
+    box-shadow: var(--shadow-soft); /* Add depth beneath the hero card. */
+}
+
+
+.hero-panel-compact { /* Slightly compress the hero card on auth pages. */
+    margin-bottom: 0; /* Let the auth layout manage spacing between columns. */
+}
+
+
+h1, /* Target top-level headings. */
+h2, /* Target section headings. */
+h3 { /* Target subsection headings. */
+    margin: 0; /* Remove the browser default margins. */
+    font-weight: 400; /* Keep headings aligned with the minimal overall type style. */
+}
+
+
+h1 { /* Style primary page headings. */
+    font-size: clamp(1.8rem, 3vw, 3rem); /* Scale the main headline responsively. */
+    line-height: 1.08; /* Keep the headline tight without crowding. */
+    max-width: 16ch; /* Prevent the headline from stretching too wide. */
+}
+
+
+h2 { /* Style panel headings. */
+    font-size: 1.2rem; /* Keep panel titles prominent but below the hero. */
+    line-height: 1.15; /* Tighten panel heading line height slightly. */
+}
+
+
+h3 { /* Style subsection headings. */
+    font-size: 0.88rem; /* Keep subsection headings compact. */
+    letter-spacing: 0.06em; /* Give subsection headings a technical label feel. */
+    text-transform: uppercase; /* Differentiate subsection labels from body copy. */
+}
+
+
+p { /* Normalize paragraph elements. */
+    margin: 0; /* Remove default paragraph margins so layout spacing stays explicit. */
+    color: var(--color-text-muted); /* Use the softer text color for body copy. */
+    line-height: 1.5; /* Keep paragraphs readable without feeling loose. */
+}
+
+
+.status-chip { /* Style compact uppercase labels. */
+    display: inline-flex; /* Keep the chip sized to its content. */
+    align-items: center; /* Vertically center text inside the chip. */
+    justify-content: center; /* Horizontally center text inside the chip. */
+    min-height: 30px; /* Guarantee a consistent chip height. */
+    padding: 0 12px; /* Add horizontal space around the chip text. */
+    margin-bottom: 18px; /* Separate the chip from the heading below. */
+    border: 1px solid currentColor; /* Reuse the current text color as the chip outline. */
+    border-radius: 999px; /* Give the chip a fully rounded silhouette. */
+    font-size: 0.62rem; /* Shrink the chip label relative to body copy. */
+    letter-spacing: 0.12em; /* Increase tracking to reinforce the label style. */
+    text-transform: uppercase; /* Force label text into uppercase. */
+}
+
+
+.status-chip-success { /* Color the chip for successful states. */
+    color: var(--color-success); /* Apply the success accent color. */
+}
+
+
+.status-chip-error { /* Color the chip for error states. */
+    color: var(--color-error); /* Apply the error accent color. */
+}
+
+
+.status-chip-neutral { /* Color the chip for neutral states. */
+    color: var(--color-text); /* Keep neutral chips white. */
+}
+
+
+.stack-form { /* Layout form controls in a single vertical stack. */
+    display: flex; /* Use flexbox to stack form children. */
+    flex-direction: column; /* Arrange form children vertically. */
+    gap: 10px; /* Keep a consistent gap between stacked controls. */
+}
+
+
+.field-block { /* Style form field labels. */
+    font-size: 0.68rem; /* Keep labels smaller than input text. */
+    letter-spacing: 0.08em; /* Add tracking for a controlled, labeled feel. */
+    text-transform: uppercase; /* Render labels in uppercase. */
+}
+
+
+.field-hint { /* Style helper text below fields. */
+    font-size: 0.78rem; /* Make helper copy smaller than body text. */
+    color: var(--color-text-soft); /* Lower the helper text contrast. */
+}
+
+
+.text-field, /* Target standard text inputs. */
+.text-area, /* Target multiline textareas. */
+.file-field { /* Target file inputs. */
+    width: 100%; /* Stretch controls across the available container width. */
+    padding: 14px 16px; /* Add generous internal control spacing. */
+    border: 1px solid var(--color-border); /* Outline fields with the shared border token. */
+    border-radius: var(--radius-sm); /* Round the field corners slightly. */
+    background: var(--color-surface-strong); /* Put controls on a lifted dark surface. */
+    color: var(--color-text); /* Keep field text white. */
+}
+
+
+input[type="number"].text-field::-webkit-outer-spin-button, /* Target Safari and Chromium outer number spinners on shared text fields. */
+input[type="number"].text-field::-webkit-inner-spin-button { /* Target Safari and Chromium inner number spinners on shared text fields. */
+    -webkit-appearance: none; /* Remove native spinner controls from styled number inputs. */
+    margin: 0; /* Prevent leftover spinner spacing after removing the native control. */
+}
+
+
+input[type="number"].text-field { /* Target shared number fields rendered with the text-field class. */
+    -moz-appearance: textfield; /* Remove Firefox number spinners so the field matches the rest of the UI. */
+    appearance: textfield; /* Request spinner-free number fields in browsers that honor the standard property. */
+}
+
+
+.text-area { /* Specialize textarea controls. */
+    resize: vertical; /* Allow only vertical resizing to preserve layout. */
+    min-height: 140px; /* Ensure the textarea has enough default height. */
+}
+
+
+.file-field { /* Specialize file input controls. */
+    padding: 12px 16px; /* Slightly tighten the file input padding. */
+}
+
+
+.text-field:focus, /* Target focused single-line inputs. */
+.text-area:focus, /* Target focused textareas. */
+.file-field:focus { /* Target focused file inputs. */
+    outline: 2px solid var(--color-focus); /* Draw a clear focus ring. */
+    outline-offset: 2px; /* Offset the focus ring away from the field edge. */
+    border-color: var(--color-border-strong); /* Strengthen the border on focus. */
+}
+
+
+.button-row { /* Layout related actions next to each other. */
+    display: flex; /* Use flexbox for action alignment. */
+    flex-wrap: wrap; /* Allow buttons to wrap on narrow screens. */
+    gap: 10px; /* Keep a consistent gap between buttons. */
+}
+
+
+.action-btn, /* Target primary action buttons. */
+.ghost-btn, /* Target secondary action buttons. */
+.error-btn-home { /* Target the standalone home button on error pages. */
+    appearance: none; /* Remove native button styling. */
+    -webkit-appearance: none; /* Remove Safari-specific native button styling. */
+    border-radius: var(--radius-sm); /* Use the shared small radius. */
+    cursor: pointer; /* Show a pointer cursor to signal clickability. */
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease; /* Animate button state changes without lift effects. */
+}
+
+
+.action-btn { /* Style primary buttons. */
+    border: 1px solid var(--color-text); /* Use a solid white outline. */
+    background: var(--color-text); /* Fill the button white by default. */
+    color: var(--color-bg); /* Use black text for contrast on the white fill. */
+    padding: 14px 18px; /* Give primary buttons a generous click area. */
+}
+
+
+.action-btn:hover { /* Style primary buttons on hover. */
+    background: transparent; /* Flip the button to an outlined state on hover. */
+    color: var(--color-text); /* Restore white text when the fill disappears. */
+}
+
+
+.ghost-btn { /* Style secondary buttons. */
+    border: 1px solid var(--color-border-strong); /* Use a restrained border for secondary actions. */
+    background: transparent; /* Keep secondary buttons transparent by default. */
+    color: var(--color-text); /* Keep secondary button text white. */
+    padding: 14px 18px; /* Match primary button spacing. */
+}
+
+
+.ghost-btn:hover { /* Style secondary buttons on hover. */
+    border-color: var(--color-text); /* Strengthen the outline on hover. */
+    background: rgba(255, 255, 255, 0.05); /* Add a faint fill on hover. */
+}
+
+
+.ghost-btn-danger { /* Style destructive secondary actions. */
+    border-color: rgba(255, 102, 102, 0.45); /* Give destructive actions a red outline. */
+    color: var(--color-error); /* Tint destructive action text red. */
+}
+
+
+.ghost-btn-danger:hover { /* Style destructive secondary actions on hover. */
+    border-color: var(--color-danger); /* Strengthen the red outline on hover. */
+    background: rgba(255, 102, 102, 0.08); /* Add a soft red fill on hover. */
+}
+
+
+.action-btn:focus-visible, /* Target focused primary buttons. */
+.ghost-btn:focus-visible, /* Target focused secondary buttons. */
+.error-btn-home:focus-visible { /* Target the focused icon-only home button. */
+    outline: 2px solid var(--color-focus); /* Draw a visible shared focus ring. */
+    outline-offset: 3px; /* Offset the focus ring from the control edge. */
+}
+
+
+.form-status { /* Style inline form feedback areas. */
+    min-height: 26px; /* Reserve height so feedback does not shift layout vertically. */
+    font-size: 0.82rem; /* Keep status copy slightly smaller than body text. */
+    color: var(--color-text-muted); /* Default to muted text for neutral messages. */
+}
+
+
+.form-status[data-state="pending"] { /* Style pending status messages. */
+    color: var(--color-text-muted); /* Keep pending feedback neutral. */
+}
+
+
+.form-status[data-state="success"] { /* Style successful status messages. */
+    color: var(--color-success); /* Tint successful feedback green. */
+}
+
+
+.form-status[data-state="error"] { /* Style error status messages. */
+    color: var(--color-error); /* Tint failed feedback red. */
+}
+
+
+.output-block { /* Style response preview blocks. */
+    border: 1px solid var(--color-border); /* Outline the output region. */
+    border-radius: var(--radius-md); /* Use a medium radius for output cards. */
+    background: var(--color-surface-soft); /* Place outputs on a slightly lifted surface. */
+    overflow: hidden; /* Clip the header and pre blocks to the rounded corners. */
+}
+
+
+.output-block-head { /* Style the output block header row. */
+    padding: 16px 18px; /* Add header padding above the code area. */
+    border-bottom: 1px solid var(--color-border); /* Separate the header from the payload. */
+}
+
+
+.code-block { /* Style preformatted response dumps. */
+    margin: 0; /* Remove the default pre margin. */
+    padding: 18px; /* Add internal space around response JSON. */
+    min-height: 140px; /* Reserve room for output before any data is shown. */
+    overflow: auto; /* Allow large payloads to scroll instead of overflowing. */
+    background: #050505; /* Make code blocks slightly darker than their parent card. */
+    color: #d7ffd9; /* Use a pale green for response payload text. */
+    font-size: 0.74rem; /* Shrink payload text for denser JSON output. */
+    line-height: 1.55; /* Keep code block lines readable. */
+    white-space: pre-wrap; /* Allow long JSON lines to wrap. */
+    word-break: break-word; /* Prevent long tokens from overflowing the block. */
+}
+
+
+.panel-separator { /* Add separation between stacked panel subsections. */
+    margin-top: 22px; /* Push the next subsection away from the previous one. */
+    padding-top: 22px; /* Add inner breathing room after the separator line. */
+    border-top: 1px solid var(--color-border); /* Draw a subtle separator line. */
+}
+
+
+.empty-state { /* Style empty placeholder text. */
+    padding: 16px; /* Give the empty message some breathing room. */
+    border: 1px dashed var(--color-border-strong); /* Use a dashed border to signal placeholder content. */
+    border-radius: var(--radius-sm); /* Keep the placeholder softly rounded. */
+    color: var(--color-text-soft); /* Lower contrast for empty-state messaging. */
+}
+
+
+@media (max-width: 900px) {
+    /* Adjust global spacing on tablet-sized screens. */
+    :root { /* Retune shared layout tokens for smaller screens. */
+        --page-padding: 24px; /* Tighten outer page padding. */
+    }
+
+    .site-header-inner { /* Reflow the header stack on smaller screens. */
+        align-items: flex-start; /* Align wrapped nav rows to the left edge. */
+        flex-direction: column; /* Stack the brand above the nav links. */
+        padding: 18px 64px 18px 64px; /* Keep space reserved for the floating preference FABs on tablets. */
+    }
+
+    .site-header-nav { /* Reflow the nav on smaller screens. */
+        justify-content: flex-start; /* Align wrapped nav chips to the left edge. */
+    }
+
+    .hero-panel { /* Tighten hero spacing on smaller screens. */
+        padding: 24px; /* Reduce hero padding. */
+    }
+
+}
+
+
+@media (max-width: 640px) {
+    /* Adjust typography and spacing on phones. */
+    html { /* Retune the document root for small screens. */
+        font-size: 18px; /* Reduce the base font size slightly. */
+    }
+
+    .page-shell { /* Retune the main page wrapper on phones. */
+        width: min(calc(100% - 24px), var(--page-max-width)); /* Trim outer horizontal spacing. */
+    }
+
+    .hero-panel { /* Tighten hero card spacing further on phones. */
+        padding: 20px; /* Reduce hero padding again for compact screens. */
+    }
+
+    .button-row { /* Stack buttons more naturally on very small screens. */
+        flex-direction: column; /* Put each button on its own row when needed. */
+    }
+
+    .site-header-inner { /* Retune header padding on phones while still reserving room for the corner FABs. */
+        padding: 16px 56px; /* Leave a slightly smaller FAB buffer on narrow screens. */
+    }
+
+    .preferences-fab { /* Retune the floating preference buttons for phone screens. */
+        top: 14px; /* Keep the buttons aligned with the reduced mobile header padding. */
+        width: 44px; /* Make the floating buttons slightly smaller on phones. */
+        height: 44px; /* Match the reduced mobile floating-button width. */
+    }
+
+    .preferences-fab-left { /* Retune the left FAB position on phones. */
+        left: 14px; /* Match the reduced mobile page chrome margin. */
+    }
+
+    .preferences-fab-right { /* Retune the right FAB position on phones. */
+        right: 14px; /* Match the reduced mobile page chrome margin. */
+    }
+
+    .preferences-modal { /* Retune preference popovers on phones so they stay aligned under the smaller FABs. */
+        top: 62px; /* Keep popovers directly below the smaller mobile FAB row. */
+    }
+
+    .preferences-modal.preferences-modal-left { /* Retune the left popover anchor on phones. */
+        left: 14px; /* Match the reduced left gutter used by the mobile FAB. */
+    }
+
+    .preferences-modal.preferences-modal-right { /* Retune the right popover anchor on phones. */
+        right: 14px; /* Match the reduced right gutter used by the mobile FAB. */
+    }
+
+}
+

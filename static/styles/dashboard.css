@@ -1,0 +1,682 @@
+.page-dashboard { /* Style the items dashboard body. */
+    display: block; /* Keep the dashboard in standard document flow. */
+}
+
+
+.page-dashboard.dialog-open { /* Lock background scrolling while a fallback modal is open. */
+    overflow: hidden; /* Prevent the page from scrolling behind the fallback overlay. */
+}
+
+
+[hidden] { /* Hide nodes that intentionally toggle through the hidden attribute. */
+    display: none !important; /* Force hidden nodes out of layout. */
+}
+
+
+.site-header-icon-btn { /* Style the compact icon buttons in the dashboard header. */
+    appearance: none; /* Remove native button styling. */
+    -webkit-appearance: none; /* Remove Safari-native button styling. */
+    width: 48px; /* Give each icon button a square hit area. */
+    height: 48px; /* Match width and height for a square silhouette. */
+    border: 1px solid var(--color-border-strong); /* Outline icon buttons clearly. */
+    border-radius: 999px; /* Make icon buttons fully rounded. */
+    background: transparent; /* Keep icon buttons transparent by default. */
+    color: var(--color-text); /* Render icon strokes in white. */
+    display: inline-flex; /* Use flexbox to center icons precisely. */
+    align-items: center; /* Center icons vertically. */
+    justify-content: center; /* Center icons horizontally. */
+    cursor: pointer; /* Show a pointer cursor for interactivity. */
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease; /* Animate icon-button state changes without lift effects. */
+}
+
+
+.site-header-icon-btn:hover { /* Style dashboard header icon buttons on hover. */
+    border-color: var(--color-text); /* Strengthen the outline on hover. */
+    background: rgba(255, 255, 255, 0.05); /* Add a faint fill on hover. */
+}
+
+
+.site-header-icon-btn:focus-visible { /* Style dashboard header icon buttons for keyboard focus. */
+    outline: 2px solid var(--color-focus); /* Draw a visible shared focus ring. */
+    outline-offset: 3px; /* Separate the focus ring from the icon-button edge. */
+}
+
+
+.site-header-icon-btn-danger { /* Tint the logout icon button toward destructive state. */
+    border-color: rgba(255, 102, 102, 0.45); /* Give the logout button a soft red outline. */
+    color: var(--color-error); /* Tint the logout icon red. */
+}
+
+
+.site-header-icon-btn-danger:hover { /* Strengthen the destructive icon button on hover. */
+    border-color: var(--color-danger); /* Strengthen the red outline on hover. */
+    background: rgba(255, 102, 102, 0.08); /* Add a soft red fill on hover. */
+}
+
+
+.site-header-icon { /* Size icons inside dashboard header buttons. */
+    width: 22px; /* Keep header icons compact. */
+    height: 22px; /* Keep header icons square. */
+    display: block; /* Remove inline SVG baseline artifacts. */
+    color: inherit; /* Let masked header icons follow the button color. */
+}
+
+
+.items-toolbar { /* Layout the items title row and utility controls. */
+    display: flex; /* Use flexbox for the items toolbar layout. */
+    align-items: flex-end; /* Align the bottom edges of toolbar groups. */
+    justify-content: space-between; /* Push controls to the far edge. */
+    gap: 18px; /* Leave room between toolbar groups. */
+    flex-wrap: wrap; /* Allow toolbar groups to wrap on smaller screens. */
+}
+
+
+.items-toolbar-secondary { /* Tweak the second toolbar row containing paging and status. */
+    margin-top: 22px; /* Separate the secondary toolbar from the title row. */
+    padding-top: 22px; /* Add inner breathing room above the secondary row. */
+    border-top: 1px solid var(--color-border); /* Draw a subtle divider above the secondary row. */
+    align-items: center; /* Align pagination controls and status vertically. */
+}
+
+
+.items-toolbar-title { /* Stack the items heading and summary line. */
+    display: flex; /* Use flexbox for the title block. */
+    flex-direction: column; /* Place the summary below the heading. */
+    gap: 8px; /* Keep a small gap between heading and summary. */
+}
+
+
+.items-toolbar-actions { /* Wrap actions that live in the items toolbar. */
+    display: flex; /* Use flexbox for the toolbar action group. */
+    flex-wrap: wrap; /* Allow actions to wrap when space gets tight. */
+    gap: 10px; /* Keep consistent space between toolbar actions. */
+}
+
+
+.items-summary { /* Style the compact items summary line. */
+    color: var(--color-text-soft); /* Lower contrast for paging metadata. */
+    font-size: 0.82rem; /* Keep the summary slightly smaller than body text. */
+}
+
+
+.pagination-controls { /* Layout the paging controls on one flexible row. */
+    display: flex; /* Use flexbox for compact paging controls. */
+    align-items: flex-end; /* Align buttons and inputs to their bottom edges. */
+    gap: 10px; /* Keep visible space between paging controls. */
+    flex-wrap: wrap; /* Allow controls to wrap on narrower screens. */
+}
+
+
+.pagination-field { /* Stack paging labels above their inputs. */
+    display: flex; /* Use flexbox for the paging field wrapper. */
+    flex-direction: column; /* Place the label above the input. */
+    gap: 8px; /* Leave a small gap between label and field. */
+    width: 112px; /* Keep page and limit controls compact. */
+}
+
+
+.pagination-controls .ghost-btn:disabled { /* Style disabled paging buttons explicitly. */
+    opacity: 0.42; /* Fade disabled paging buttons noticeably. */
+    cursor: not-allowed; /* Signal that disabled paging buttons cannot be used. */
+}
+
+
+.dashboard-identity { /* Style compact user summary text inside the profile modal. */
+    color: var(--color-text-soft); /* Lower contrast relative to primary headings. */
+    font-size: 0.82rem; /* Keep the summary compact. */
+}
+
+
+.profile-form { /* Retune the account modal form to use larger vertical rhythm. */
+    gap: 18px; /* Match the spacing between profile sections and field blocks. */
+}
+
+
+.item-form { /* Retune the item modal form to use the same larger vertical rhythm as the profile form. */
+    gap: 18px; /* Match the spacing between image, fields, actions, and status. */
+}
+
+
+.profile-avatar-row { /* Center the avatar picker at the top of the account form. */
+    display: flex; /* Use flexbox to center the avatar shell cleanly. */
+    justify-content: center; /* Keep the avatar circle visually centered within the modal. */
+}
+
+
+.item-image-row { /* Center the item-image picker exactly like the profile avatar picker. */
+    justify-content: center; /* Keep the item-image circle centered above the item fields. */
+}
+
+
+.profile-avatar-shell { /* Anchor the avatar circle and its compact delete control together. */
+    position: relative; /* Create a positioning context for the floating delete button. */
+    width: 128px; /* Match the shell width to the avatar circle diameter. */
+    height: 128px; /* Match the shell height to the avatar circle diameter. */
+}
+
+
+.profile-avatar-button { /* Style the clickable round avatar control. */
+    appearance: none; /* Remove native button styling from the avatar control. */
+    -webkit-appearance: none; /* Remove Safari-native button styling from the avatar control. */
+    width: 128px; /* Make the avatar control larger and more prominent. */
+    height: 128px; /* Match width and height for a true circle silhouette. */
+    padding: 0; /* Let the avatar image fill the full circular frame. */
+    border: 1px solid var(--color-border-strong); /* Outline the empty avatar circle clearly. */
+    border-radius: 999px; /* Make the avatar control perfectly round. */
+    background: var(--color-surface-soft); /* Fill the empty avatar circle with a soft elevated surface. */
+    cursor: pointer; /* Show a pointer cursor for avatar uploads and replacements. */
+    overflow: hidden; /* Clip the preview image to the circular frame. */
+    display: inline-flex; /* Use flexbox to center any fallback content inside the circle. */
+    align-items: center; /* Center fallback content vertically inside the avatar circle. */
+    justify-content: center; /* Center fallback content horizontally inside the avatar circle. */
+    transition: border-color 0.2s ease, background 0.2s ease; /* Animate avatar-control state changes without lift effects. */
+}
+
+
+.profile-avatar-button:hover { /* Strengthen the avatar circle on hover. */
+    border-color: var(--color-text); /* Make the avatar circle outline brighter on hover. */
+    background: rgba(255, 255, 255, 0.04); /* Add a faint fill shift while hovering the empty avatar circle. */
+}
+
+
+.profile-avatar-button.has-image { /* Remove the empty-circle fill treatment when an avatar image exists. */
+    background: #050505; /* Let the existing avatar image sit on a darker neutral base. */
+}
+
+
+.profile-avatar-image { /* Make the avatar preview image fill the circular frame. */
+    width: 100%; /* Stretch the preview image across the full avatar width. */
+    height: 100%; /* Stretch the preview image across the full avatar height. */
+    object-fit: cover; /* Crop avatar images cleanly inside the circle. */
+    display: block; /* Remove inline-image baseline artifacts inside the avatar frame. */
+}
+
+
+.profile-avatar-placeholder { /* Style the placeholder artwork shown when no avatar is uploaded. */
+    width: 100%; /* Let the placeholder artwork fill the avatar circle width. */
+    height: 100%; /* Let the placeholder artwork fill the avatar circle height. */
+    object-fit: cover; /* Keep the placeholder artwork filling the circular frame cleanly. */
+    display: block; /* Remove inline-image baseline artifacts for the placeholder artwork. */
+}
+
+
+.profile-avatar-delete-btn { /* Float the avatar delete control as a compact cross button. */
+    position: absolute; /* Pull the delete control out of normal flow so the avatar stays centered. */
+    right: -10px; /* Let the delete control sit just outside the circle edge on the lower-right side. */
+    bottom: -6px; /* Anchor the delete control near the lower edge of the avatar circle. */
+    min-width: 30px; /* Keep the delete control compact. */
+    width: 30px; /* Make the delete control square. */
+    height: 30px; /* Match width and height for a compact circular silhouette. */
+    padding: 0; /* Let the cross glyph sit at the visual center. */
+    border-radius: 999px; /* Keep the delete control fully rounded. */
+    font-size: 1rem; /* Scale the cross glyph down. */
+    line-height: 1; /* Keep the cross glyph vertically centered. */
+}
+
+
+.profile-field-list { /* Group profile fields into evenly spaced vertical blocks. */
+    display: flex; /* Use flexbox to stack field groups. */
+    flex-direction: column; /* Keep profile field groups vertical. */
+    gap: 18px; /* Match the spacing between each field block. */
+}
+
+
+.item-field-list { /* Group item-modal fields into evenly spaced vertical blocks. */
+    display: flex; /* Use flexbox to stack the item field groups. */
+    flex-direction: column; /* Keep item field groups vertical. */
+    gap: 18px; /* Match the spacing between each item field block. */
+}
+
+
+.profile-field-group { /* Keep each profile label and input paired together. */
+    display: flex; /* Use flexbox for label and input pairing. */
+    flex-direction: column; /* Stack the label above its input. */
+    gap: 10px; /* Preserve the shared label-to-field spacing. */
+}
+
+
+.item-field-group { /* Keep each item-modal label and input paired together. */
+    display: flex; /* Use flexbox for label and input pairing. */
+    flex-direction: column; /* Stack the label above its field. */
+    gap: 10px; /* Preserve the shared label-to-field spacing. */
+}
+
+
+.profile-form-actions { /* Separate the profile submit button from the last field by the same field-block gap. */
+    display: flex; /* Use flexbox for the standalone submit row. */
+    margin-top: 8px; /* Compensate for the missing label above the submit button so the visual gap matches the field rhythm. */
+}
+
+
+.item-form-actions { /* Spread the item-modal actions across the modal width. */
+    width: 100%; /* Let the item action row span the modal content width. */
+    justify-content: space-between; /* Keep Save on the left and Delete pinned to the right edge. */
+    align-items: center; /* Keep the item action buttons vertically aligned. */
+    margin-top: 18px; /* Add a larger visual break between the last field and the item action row. */
+}
+
+
+.profile-modal-actions { /* Tweak the standalone action section at the bottom of the account modal. */
+    display: flex; /* Use flexbox so the standalone action row can size naturally. */
+    flex-direction: column; /* Keep the account action section vertical. */
+    gap: 14px; /* Leave breathing room inside the standalone account action section. */
+}
+
+
+.profile-modal-actions .button-row { /* Spread the account-level actions across the modal width. */
+    width: 100%; /* Let the account action row span the modal content width. */
+    justify-content: space-between; /* Keep delete-account pinned to the right edge. */
+}
+
+
+#open-delete-account-page-btn:hover { /* Give the destructive account action a solid red hover state. */
+    border-color: var(--color-danger); /* Strengthen the destructive outline on hover. */
+    background: var(--color-danger); /* Fill the button solid red on hover. */
+    color: var(--color-bg); /* Switch the text to black for contrast against the red fill. */
+}
+
+
+#item-modal-status:empty, /* Collapse the inline item-modal status area when there is no message. */
+#change-password-page-status:empty, /* Collapse the standalone change-password status area when there is no message. */
+#delete-account-page-status:empty { /* Collapse the standalone delete-account status area when there is no message. */
+    display: none; /* Remove empty status rows so the forms stay visually compact. */
+}
+
+
+.item-list { /* Layout the rendered item cards. */
+    display: flex; /* Stack rendered items vertically instead of tiling them into a grid. */
+    flex-direction: column; /* Keep every item on its own row. */
+    gap: 12px; /* Keep consistent space between list rows. */
+    margin-top: 22px; /* Separate the list from the toolbar row above it. */
+}
+
+
+.item-card { /* Style a single item card. */
+    padding: 18px 20px; /* Add interior spacing around the item row. */
+    border: 1px solid var(--color-border); /* Outline the card subtly. */
+    border-radius: var(--radius-sm); /* Use the shared small radius for cards. */
+    background: var(--color-surface-soft); /* Lift the card above the panel background. */
+    display: flex; /* Use flexbox to stack card content. */
+    align-items: center; /* Align the thumbnail, content, and actions along the row center. */
+    justify-content: space-between; /* Push actions to the far edge of each row item. */
+    gap: 18px; /* Leave breathing room between item content and actions. */
+    min-height: 128px; /* Keep every desktop item card at the same compact height as the image-bearing rows. */
+    max-height: 128px; /* Prevent long descriptions from stretching item rows taller than the fixed desktop height. */
+    overflow: hidden; /* Clip overflowing inner content instead of letting the card grow taller. */
+}
+
+
+.item-card-media { /* Reserve a fixed thumbnail slot on the left side of item rows. */
+    width: 72px; /* Keep the thumbnail compact enough for list rows. */
+    height: 72px; /* Match width and height for a square media slot. */
+    flex-shrink: 0; /* Prevent the media slot from collapsing in narrow rows. */
+    border-radius: var(--radius-sm); /* Round the thumbnail corners consistently with the rest of the UI. */
+    overflow: hidden; /* Clip the image neatly to the rounded thumbnail frame. */
+    background: #050505; /* Provide a dense fallback background under translucent images. */
+}
+
+
+.item-card-image { /* Make item thumbnails fill the fixed media slot cleanly. */
+    width: 100%; /* Stretch the thumbnail across the media slot width. */
+    height: 100%; /* Stretch the thumbnail across the media slot height. */
+    object-fit: cover; /* Crop item thumbnails cleanly within the fixed frame. */
+    display: block; /* Remove inline-image baseline artifacts. */
+}
+
+
+.item-card-body { /* Keep the text content of one list item grouped on the left. */
+    display: flex; /* Use flexbox to stack title/meta and description. */
+    flex-direction: column; /* Arrange the content of the item body vertically. */
+    justify-content: center; /* Keep shorter item content vertically centered inside the fixed-height row. */
+    gap: 10px; /* Leave room between the top line and description. */
+    flex: 1; /* Let the text content consume the free horizontal space. */
+    min-width: 0; /* Allow the text content to shrink without overflowing the row. */
+    min-height: 0; /* Allow the body column to shrink within the fixed-height item card. */
+}
+
+
+.item-card-title-row { /* Keep the item title grouped cleanly on the left side of the header. */
+    display: flex; /* Use flexbox for consistent title alignment. */
+    align-items: center; /* Keep the title vertically centered inside the row. */
+    min-width: 0; /* Allow the title row to shrink cleanly without overflow. */
+}
+
+
+.item-card-title { /* Style the item title. */
+    font-size: 1rem; /* Keep item titles visually prominent. */
+    color: var(--color-text); /* Render item titles in white. */
+}
+
+
+.item-card-description { /* Style item description text. */
+    display: block; /* Keep the description as a normal block so single-line truncation works reliably. */
+    color: var(--color-text-muted); /* Keep descriptions slightly softer than titles. */
+    white-space: nowrap; /* Force the description onto a single line before truncating it. */
+    text-overflow: ellipsis; /* Show an ellipsis when the description text overflows the available width. */
+    overflow: hidden; /* Hide description text that exceeds the fixed line clamp. */
+}
+
+
+.item-card-side { /* Reserve a stable right-hand rail for timestamps and actions. */
+    width: 520px; /* Keep the right-hand rail width fixed so long descriptions do not shift it. */
+    max-width: 100%; /* Allow the side rail to shrink safely on narrower screens. */
+    display: grid; /* Use grid to keep meta and actions in stable columns. */
+    grid-template-columns: minmax(0, 1fr) auto; /* Give timestamps the flexible column and actions the compact column. */
+    align-items: center; /* Vertically center the side-rail content within the row. */
+    gap: 24px; /* Leave room between timestamps and action buttons. */
+    flex-shrink: 0; /* Prevent the right-hand rail from collapsing unpredictably. */
+}
+
+
+.item-card-meta { /* Style compact item metadata text. */
+    display: flex; /* Use flexbox to stack metadata lines cleanly. */
+    flex-direction: column; /* Put Created and Updated on separate lines. */
+    align-items: flex-end; /* Keep metadata aligned toward the action side of the row. */
+    gap: 2px; /* Leave a tight gap between the metadata lines. */
+    color: var(--color-text-soft); /* Lower contrast for metadata. */
+    font-size: 0.74rem; /* Keep metadata smaller than body text. */
+    line-height: 1.45; /* Keep metadata readable when wrapped. */
+    white-space: nowrap; /* Keep both metadata lines on one line each so the right rail stays stable. */
+}
+
+
+.item-card-actions { /* Wrap per-card actions neatly. */
+    display: flex; /* Use flexbox for the card action group. */
+    align-items: stretch; /* Keep action buttons the same height regardless of label length. */
+    flex-wrap: wrap; /* Allow card actions to wrap when needed. */
+    gap: 10px; /* Keep consistent space between card actions. */
+    flex-shrink: 0; /* Keep action buttons visible without shrinking into unreadability. */
+}
+
+
+.item-card-actions .ghost-btn { /* Normalize item-row action button sizing. */
+    min-width: 110px; /* Give Edit and Delete the same stable button width. */
+    min-height: 54px; /* Give Edit and Delete the same stable button height. */
+    display: inline-flex; /* Use flexbox to center the button labels precisely. */
+    align-items: center; /* Center the action labels vertically. */
+    justify-content: center; /* Center the action labels horizontally. */
+}
+
+
+.items-pagination { /* Layout the bottom pagination row below the item list. */
+    display: flex; /* Use flexbox to place arrows around the page number strip. */
+    align-items: center; /* Align the pagination controls vertically. */
+    justify-content: center; /* Center the full pagination group below the list. */
+    gap: 12px; /* Leave room between arrows and numbered pages. */
+    margin-top: 18px; /* Separate the pagination row from the item list above it. */
+    flex-wrap: wrap; /* Allow pagination controls to wrap cleanly on smaller screens. */
+}
+
+
+.pagination-pages { /* Layout the numbered pagination buttons. */
+    display: flex; /* Use flexbox for the numbered page strip. */
+    align-items: center; /* Align numbered buttons vertically. */
+    justify-content: center; /* Keep numbered buttons centered between the arrows. */
+    gap: 8px; /* Leave a compact gap between numbered page buttons. */
+    flex-wrap: wrap; /* Allow the page strip to wrap if the viewport gets narrow. */
+}
+
+
+.pagination-page { /* Style one numbered page button. */
+    appearance: none; /* Remove native button styling. */
+    -webkit-appearance: none; /* Remove Safari-native button styling. */
+    min-width: 42px; /* Keep numbered page buttons large enough to hit comfortably. */
+    height: 42px; /* Make numbered page buttons square and compact. */
+    padding: 0 12px; /* Add horizontal room for double-digit page numbers. */
+    border: 1px solid var(--color-border-strong); /* Outline numbered page buttons clearly. */
+    border-radius: 999px; /* Give numbered page buttons a rounded chip silhouette. */
+    background: transparent; /* Keep inactive page buttons transparent. */
+    color: var(--color-text); /* Render numbered page labels in white. */
+    cursor: pointer; /* Show a pointer cursor for pagination interaction. */
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease; /* Animate page-button state changes without lift effects. */
+}
+
+
+.pagination-page:hover { /* Style numbered page buttons on hover. */
+    border-color: var(--color-text); /* Strengthen the outline of hovered page buttons. */
+    background: rgba(255, 255, 255, 0.05); /* Add a subtle fill on hover. */
+}
+
+
+.pagination-page.is-active { /* Highlight the currently active page number. */
+    border-color: var(--color-text); /* Give the active page button a strong outline. */
+    background: var(--color-text); /* Fill the active page button white. */
+    color: var(--color-bg); /* Switch the active page number to black for contrast. */
+}
+
+
+.pagination-arrow { /* Style previous and next arrow buttons. */
+    min-width: 48px; /* Keep arrow buttons square enough to hit comfortably. */
+    height: 48px; /* Match arrow-button width and height. */
+    padding: 0; /* Let the icon character define the visual center. */
+    font-size: 1.05rem; /* Increase arrow glyph size slightly for readability. */
+}
+
+
+.pagination-arrow:disabled { /* Style disabled arrow buttons explicitly. */
+    border-color: var(--color-border); /* Fade disabled arrow outlines. */
+    color: var(--color-text-soft); /* Lower contrast on disabled arrow glyphs. */
+    background: transparent; /* Keep disabled arrows unfilled. */
+    cursor: not-allowed; /* Signal that disabled arrows cannot be used. */
+}
+
+
+.dashboard-toast { /* Style transient dashboard toasts near the bottom center of the viewport. */
+    position: fixed; /* Anchor the toast relative to the viewport instead of the page flow. */
+    left: 50%; /* Start horizontal centering from the middle of the viewport. */
+    bottom: 28px; /* Lift the toast slightly above the bottom viewport edge. */
+    transform: translateX(-50%) translateY(16px); /* Center the toast and start it slightly lower for the entrance animation. */
+    min-width: 220px; /* Keep the toast readable even for short messages. */
+    max-width: min(calc(100vw - 32px), 420px); /* Prevent the toast from exceeding the viewport on smaller screens. */
+    padding: 14px 18px; /* Add comfortable inner spacing around toast text. */
+    border: 1px solid var(--color-border-strong); /* Outline the toast against the page background. */
+    border-radius: 999px; /* Give the toast a compact rounded silhouette. */
+    background: rgba(13, 13, 13, 0.96); /* Use a dense dark background so the toast reads above the page. */
+    box-shadow: var(--shadow-soft); /* Lift the toast above the dashboard content. */
+    color: var(--color-text); /* Keep the toast text bright and readable. */
+    text-align: center; /* Center the toast message text. */
+    opacity: 0; /* Keep the toast invisible until it is activated. */
+    pointer-events: none; /* Prevent the toast from intercepting pointer input. */
+    transition: opacity 0.2s ease, transform 0.2s ease; /* Animate toast entrance and exit smoothly. */
+    z-index: 60; /* Keep the toast above the header and other dashboard content. */
+}
+
+
+.dashboard-toast.is-visible { /* Show the dashboard toast in its active position. */
+    opacity: 1; /* Fade the toast into view. */
+    transform: translateX(-50%) translateY(0); /* Slide the toast into its final centered position. */
+}
+
+
+.modal { /* Style the dialog shell used for dashboard modals. */
+    width: min(calc(100% - 24px), 680px); /* Constrain standard modal width while preserving mobile margins. */
+    padding: 0; /* Remove the default dialog padding. */
+    border: none; /* Remove the native dialog border. */
+    background: transparent; /* Let the custom surface provide the visible shell. */
+    color: inherit; /* Inherit text color from the page theme. */
+}
+
+
+.modal:not([open]) { /* Hide dashboard dialogs explicitly for browsers without native dialog support. */
+    display: none; /* Keep closed dialogs completely out of layout. */
+}
+
+
+.modal[data-dialog-fallback="true"][open]:not(.preferences-modal) { /* Recreate modal overlay behavior for browsers without showModal support. */
+    position: fixed; /* Pull the fallback dialog out of normal document flow. */
+    inset: 0; /* Stretch the fallback overlay across the viewport. */
+    width: 100vw; /* Let the fallback dialog cover the full viewport width. */
+    max-width: none; /* Remove the normal dialog width cap in fallback mode. */
+    height: 100vh; /* Let the fallback dialog cover the full viewport height. */
+    max-height: none; /* Remove the normal dialog height cap in fallback mode. */
+    margin: 0; /* Remove the default dialog margins in fallback mode. */
+    padding: 12px; /* Leave a small edge gap around the centered modal surface. */
+    display: flex; /* Use flexbox to center the modal surface. */
+    align-items: center; /* Center the modal surface vertically. */
+    justify-content: center; /* Center the modal surface horizontally. */
+    overflow-y: auto; /* Allow tall fallback dialogs to scroll inside the viewport. */
+    background: rgba(0, 0, 0, 0.74); /* Emulate the dark modal backdrop in fallback mode. */
+    backdrop-filter: blur(8px); /* Keep the same soft blur behind fallback dialogs. */
+}
+
+
+.modal-wide { /* Widen the profile modal slightly. */
+    width: min(calc(100% - 24px), 760px); /* Give the profile dialog more room for multiple sections. */
+}
+
+
+.modal-compact { /* Narrow the lightweight confirmation modal compared with full edit dialogs. */
+    width: min(calc(100% - 24px), 520px); /* Keep confirm dialogs compact and focused. */
+}
+
+
+.modal::backdrop { /* Style the modal backdrop overlay. */
+    background: rgba(0, 0, 0, 0.74); /* Darken the page behind open dialogs. */
+    backdrop-filter: blur(8px); /* Blur the page behind the dialog slightly. */
+}
+
+
+.modal-surface { /* Style the visible modal content shell. */
+    width: 100%; /* Let the surface fill the dialog shell width. */
+    padding: 24px; /* Add interior spacing around modal content. */
+    border: 1px solid var(--color-border); /* Outline the modal surface. */
+    border-radius: var(--radius-md); /* Round modal corners consistently. */
+    background: var(--color-surface); /* Place the modal on the standard elevated surface. */
+    box-shadow: var(--shadow-soft); /* Lift the modal above the backdrop. */
+    display: flex; /* Use flexbox to stack modal content. */
+    flex-direction: column; /* Arrange modal content vertically. */
+    gap: 18px; /* Leave visible space between modal sections. */
+    max-height: calc(100vh - 48px); /* Keep the modal fully visible inside the viewport. */
+    overflow: auto; /* Allow modal content to scroll if it becomes too tall. */
+}
+
+
+.modal[data-dialog-fallback="true"][open]:not(.preferences-modal) .modal-surface { /* Constrain centered fallback modal content to the normal dialog width. */
+    width: min(100%, 680px); /* Match the standard dialog width inside the fallback overlay. */
+    margin: auto; /* Keep the fallback modal surface centered inside the overlay. */
+}
+
+
+.modal-wide[data-dialog-fallback="true"][open]:not(.preferences-modal) .modal-surface { /* Constrain the wide fallback modal surface separately. */
+    width: min(100%, 760px); /* Match the wider profile-dialog width inside the fallback overlay. */
+}
+
+
+.modal-compact[data-dialog-fallback="true"][open]:not(.preferences-modal) .modal-surface { /* Constrain the compact fallback modal surface separately. */
+    width: min(100%, 520px); /* Match the narrower confirm-dialog width inside the fallback overlay. */
+}
+
+
+.modal-header { /* Layout modal titles and close actions. */
+    display: flex; /* Use flexbox to separate title and close button. */
+    align-items: flex-start; /* Align the top edges of both groups. */
+    justify-content: space-between; /* Push the close button to the far edge. */
+    gap: 16px; /* Leave room between title and close action. */
+}
+
+
+.modal-title-strong { /* Slightly enlarge the primary title used in the profile modal. */
+    font-size: 1.34rem; /* Make the profile modal title a touch larger than the shared h2 size. */
+    line-height: 1.15; /* Keep the stronger modal title compact and aligned with the close button. */
+}
+
+
+.modal-title-caps { /* Style standalone modal mode labels like EDIT and CREATE as strong compact titles. */
+    text-transform: uppercase; /* Keep the mode label fully uppercase. */
+    letter-spacing: 0.06em; /* Add restrained tracking to the standalone mode title. */
+}
+
+
+.modal-eyebrow { /* Style compact modal section labels. */
+    color: var(--color-text-soft); /* Lower contrast relative to the modal title. */
+    font-size: 0.68rem; /* Keep eyebrow text compact. */
+    letter-spacing: 0.08em; /* Add label-like tracking. */
+    text-transform: uppercase; /* Render eyebrow text in uppercase. */
+}
+
+
+.modal-eyebrow-standalone { /* Strengthen standalone modal mode labels when no title follows them. */
+    color: var(--color-text); /* Give the standalone label full contrast. */
+    font-size: 0.82rem; /* Make the lone mode label slightly larger and easier to read. */
+}
+
+
+.modal-close-btn { /* Style the compact cross close button in the item modal. */
+    min-width: 40px; /* Keep the close button compact. */
+    width: 40px; /* Make the close button square. */
+    height: 40px; /* Match the close button width and height. */
+    padding: 0; /* Let the cross glyph sit at the visual center. */
+    border-radius: 999px; /* Give the close button a compact rounded silhouette. */
+    font-size: 1.2rem; /* Increase the cross glyph slightly for readability. */
+    line-height: 1; /* Keep the glyph vertically centered. */
+}
+
+
+.modal-section { /* Separate major modal form sections. */
+    padding-top: 20px; /* Add space above each modal section. */
+    border-top: 1px solid var(--color-border); /* Draw a subtle divider between sections. */
+}
+
+
+.confirm-modal-actions { /* Align destructive confirmation controls at the bottom of the compact confirm modal. */
+    width: 100%; /* Let the confirm action row span the modal content width. */
+    justify-content: space-between; /* Keep cancel on the left and delete on the right. */
+    margin-top: 6px; /* Add a small break after the confirmation copy. */
+}
+
+
+@media (max-width: 900px) {
+    /* Retune dashboard layout on tablets and smaller laptops. */
+    .items-toolbar-secondary { /* Target the secondary toolbar row. */
+        align-items: stretch; /* Let pagination and status stack more naturally when wrapped. */
+    }
+
+    .item-card { /* Retune item rows on narrower dashboard widths. */
+        flex-direction: column; /* Stack content and actions vertically when horizontal space gets tight. */
+        align-items: stretch; /* Let stacked item content fill the available width. */
+        min-height: auto; /* Remove the fixed desktop card height after rows stack vertically. */
+        max-height: none; /* Let stacked mobile/tablet rows grow naturally with their content. */
+    }
+
+    .item-card-side { /* Retune the stable side rail after stacking item rows on tablets. */
+        width: 100%; /* Let the side rail fill the stacked row width. */
+        grid-template-columns: 1fr; /* Stack metadata above actions on narrower widths. */
+        gap: 14px; /* Tighten the gap between metadata and actions when stacked. */
+    }
+
+    .item-card-meta { /* Retune item metadata alignment after stacking on tablets. */
+        align-items: flex-start; /* Align stacked metadata to the left edge. */
+    }
+
+    .item-card-actions { /* Retune item-row actions for wrapped tablet layout. */
+        width: 100%; /* Let item actions span the row width after stacking. */
+        justify-content: flex-start; /* Keep stacked action buttons aligned to the left. */
+    }
+
+    .profile-avatar-row { /* Retune the avatar row on narrower account-modal widths. */
+        justify-content: center; /* Keep the avatar shell centered on narrower widths as well. */
+    }
+
+}
+
+
+@media (max-width: 640px) {
+    /* Tighten dashboard layout on phones. */
+    .panel { /* Target dashboard panels on narrow screens. */
+        padding: 20px; /* Reduce panel padding slightly on phones. */
+    }
+
+    .pagination-field { /* Target page and limit fields on phones. */
+        width: 100%; /* Let each paging field fill the available row width. */
+    }
+
+    .modal { /* Target dialogs on phones. */
+        width: min(calc(100% - 16px), 680px); /* Reduce outer dialog margins slightly. */
+    }
+
+    .modal-surface { /* Target dialog content shells on phones. */
+        padding: 20px; /* Reduce dialog padding on small screens. */
+    }
+
+}
+

@@ -1,0 +1,1058 @@
+definitions:
+  apiModels.APIError:
+    properties:
+      code:
+        example: 500
+        type: integer
+      details:
+        example: Your request ID is 37m019ce87f-e4ec-713c-9ce2-cdff39a77b31
+        type: string
+      message:
+        example: Internal server error
+        type: string
+    type: object
+  apiModels.APIResponse:
+    properties:
+      message:
+        example: email verified
+        type: string
+    type: object
+  apiModels.AuthResponse:
+    properties:
+      access_token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDE5ZDgyY2MtNjJmOS03MzRmLThhOTEtOTYyN2FmYmIxZTFkIiwiaXNzIjoieW91ci1hcHAtbmFtZSIsInN1YiI6IjAxOWQ4MmNjLTYyZjktNzM0Zi04YTkxLTk2MjdhZmJiMWUxZCIsImF1ZCI6WyJ5b3VyLWRvbWFpbi5jb20iXSwiZXhwIjoxNzc2MTAyNTMzLCJuYmYiOjE3NzYwMTYxMzMsImlhdCI6MTc3NjAxNjEzMywianRpIjoiNzhkM2VhYjYtODVmNC00ZTZiLWFlZGYtY2MzM2YyY2JhY2QyIn0.55_EMmEToK4_uG1qKfkJ2CN8NAQ3U2yYJ5j5azkNhU8
+        type: string
+      user:
+        $ref: '#/definitions/apiModels.UserResponse'
+    type: object
+  apiModels.AuthTokensResponse:
+    properties:
+      access_token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDE5ZDgyY2MtNjJmOS03MzRmLThhOTEtOTYyN2FmYmIxZTFkIiwiaXNzIjoieW91ci1hcHAtbmFtZSIsInN1YiI6IjAxOWQ4MmNjLTYyZjktNzM0Zi04YTkxLTk2MjdhZmJiMWUxZCIsImF1ZCI6WyJ5b3VyLWRvbWFpbi5jb20iXSwiZXhwIjoxNzc2MTAyNTMzLCJuYmYiOjE3NzYwMTYxMzMsImlhdCI6MTc3NjAxNjEzMywianRpIjoiNzhkM2VhYjYtODVmNC00ZTZiLWFlZGYtY2MzM2YyY2JhY2QyIn0.55_EMmEToK4_uG1qKfkJ2CN8NAQ3U2yYJ5j5azkNhU8
+        type: string
+    type: object
+  apiModels.BadRequestError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      message:
+        example: invalid request payload
+        type: string
+    type: object
+  apiModels.ChangePasswordRequest:
+    properties:
+      current_password:
+        example: OldP4s5w0rd
+        minLength: 8
+        type: string
+      new_password:
+        example: NewP4s5w0rd
+        minLength: 8
+        type: string
+    required:
+    - current_password
+    - new_password
+    type: object
+  apiModels.ConflictError:
+    properties:
+      code:
+        example: 409
+        type: integer
+      message:
+        example: user with this username already exists
+        type: string
+    type: object
+  apiModels.CreateItemRequest:
+    properties:
+      description:
+        example: A good book
+        type: string
+      title:
+        example: Book
+        type: string
+    required:
+    - title
+    type: object
+  apiModels.DeleteAccountRequest:
+    properties:
+      password:
+        example: P4s5w0rd
+        type: string
+    required:
+    - password
+    type: object
+  apiModels.ForbiddenError:
+    properties:
+      code:
+        example: 403
+        type: integer
+      message:
+        example: operation is forbidden
+        type: string
+    type: object
+  apiModels.ForgotPasswordRequest:
+    properties:
+      email:
+        example: alice421@email.com
+        type: string
+    required:
+    - email
+    type: object
+  apiModels.ItemResponse:
+    properties:
+      created_at:
+        example: "2026-04-04T00:00:00.000000+03:00"
+        type: string
+      description:
+        example: A good book
+        type: string
+      id:
+        example: 019d82d5-8b25-78aa-b269-2b840cca9a8c
+        type: string
+      image:
+        example: http://localhost:9000/go-fx-template/items/019d82d5-8b25-78aa-b269-2b840cca9a8c/019d82d7-dd6c-7b52-9fd7-5e5be6d901b4
+        type: string
+      title:
+        example: Book
+        type: string
+      updated_at:
+        example: "2026-04-04T00:00:00.000000+03:00"
+        type: string
+      user_id:
+        example: 019d82cc-62f9-734f-8a91-9627afbb1e1d
+        type: string
+    type: object
+  apiModels.LogInUserRequest:
+    properties:
+      password:
+        example: P4s5w0rd
+        minLength: 8
+        type: string
+      username:
+        example: user421
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  apiModels.NotFoundError:
+    properties:
+      code:
+        example: 404
+        type: integer
+      message:
+        example: user not found
+        type: string
+    type: object
+  apiModels.PaginatedItemsResponse:
+    properties:
+      current_page:
+        example: 1
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/apiModels.ItemResponse'
+        type: array
+      limit_per_page:
+        example: 10
+        type: integer
+      total_objects:
+        example: 5
+        type: integer
+      total_pages:
+        example: 1
+        type: integer
+    type: object
+  apiModels.RefreshTokenRequest:
+    properties:
+      refresh_token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDE5Y2QzNDktZDE3Ni03NTYyLWIwM2ItMWRiMjIyM2I5YTAxIiwiaXNzIjoid2lzaGxpc3QuaXRza29zaGtpbi5ydSIsInN1YiI6IjAxOWNkMzQ5LWQxNzYtNzU2Mi1iMDNiLTFkYjIyMjNiOWEwMSIsImF1ZCI6WyJ3aXNobGlzdC5pdHNrb3Noa2luLnJ1Il0sImV4cCI6MTc3MzY3NjgzMywibmJmIjoxNzczMDcyMDMzLCJpYXQiOjE3NzMwNzIwMzMsImp0aSI6IjBiZDU4YWVkLWE1YjYtNDRjNi1iOTdkLWFhYjc5ZTNlZGMxNCJ9._WVHH8QfmA4qbzIyKJKJa6h2uM2jeoRtg8PLJFKSau4
+        type: string
+    type: object
+  apiModels.RegisterUserRequest:
+    properties:
+      email:
+        example: alice421@email.com
+        type: string
+      name:
+        example: Alice
+        type: string
+      password:
+        example: P4s5w0rd
+        minLength: 8
+        type: string
+      username:
+        example: user421
+        type: string
+    required:
+    - name
+    - password
+    - username
+    type: object
+  apiModels.SetNewPasswordRequest:
+    properties:
+      new_password:
+        example: Str0ng3rP4s5w0rd
+        minLength: 8
+        type: string
+      token:
+        example: 3b5b0860ed1be5c0fe6b18db6615bd05046b09677aa514a6e46c232cbff1bf7a
+        type: string
+    required:
+    - new_password
+    - token
+    type: object
+  apiModels.UnauthorizedError:
+    properties:
+      code:
+        example: 401
+        type: integer
+      message:
+        example: access token is invalid or expired
+        type: string
+    type: object
+  apiModels.UpdateItemRequest:
+    properties:
+      description:
+        example: A good book with red cover
+        type: string
+      image:
+        example: "null"
+        type: string
+      title:
+        example: Red book
+        type: string
+    type: object
+  apiModels.UpdateUserRequest:
+    properties:
+      email:
+        example: alice421@email.com
+        type: string
+      name:
+        example: Alice
+        maxLength: 255
+        type: string
+      username:
+        example: user421
+        maxLength: 64
+        type: string
+    type: object
+  apiModels.UserResponse:
+    properties:
+      avatar:
+        example: http://localhost:9000/go-fx-template/avatars/019d82cc-62f9-734f-8a91-9627afbb1e1d/019d82d4-a959-7d00-ab7d-ae1bc8d1a384
+        type: string
+      created_at:
+        example: "2026-04-04T00:00:00.000000+03:00"
+        type: string
+      email:
+        example: alice421@email.com
+        type: string
+      email_verified:
+        example: true
+        type: boolean
+      id:
+        example: 019d82cc-62f9-734f-8a91-9627afbb1e1d
+        type: string
+      name:
+        example: Alice
+        type: string
+      updated_at:
+        example: "2026-04-04T00:00:00.000000+03:00"
+        type: string
+      username:
+        example: user421
+        type: string
+    type: object
+  apiModels.VerifyEmailRequest:
+    properties:
+      token:
+        example: befe235a381306c34ac2e235a565e8d47febd88df9c100fe2cfeab5f7654db75
+        type: string
+    required:
+    - token
+    type: object
+info:
+  contact: {}
+  description: API for managing items
+  title: Go REST Template API
+  version: "1.0"
+paths:
+  /auth/forgot-password:
+    post:
+      consumes:
+      - application/json
+      description: Sends a password reset link if an account with the email exists.
+      parameters:
+      - description: Forgot password payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/apiModels.ForgotPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apiModels.APIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Request password reset
+      tags:
+      - Auth
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticates a user and returns a fresh token pair with user data.
+      parameters:
+      - description: Login payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/apiModels.LogInUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apiModels.AuthResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apiModels.UnauthorizedError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/apiModels.ForbiddenError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Log in a user
+      tags:
+      - Auth
+  /auth/logout:
+    post:
+      consumes:
+      - application/json
+      description: Revokes the current access token and the provided refresh token.
+      parameters:
+      - description: Bearer access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Optional refresh token payload for non-browser clients; browsers
+          use the HttpOnly cookie
+        in: body
+        name: request
+        schema:
+          $ref: '#/definitions/apiModels.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apiModels.APIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apiModels.UnauthorizedError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Log out a user
+      tags:
+      - Auth
+  /auth/refresh:
+    post:
+      consumes:
+      - application/json
+      description: Issues a new access and refresh token pair from a valid refresh
+        token.
+      parameters:
+      - description: Optional refresh token payload for non-browser clients; browsers
+          use the HttpOnly cookie
+        in: body
+        name: request
+        schema:
+          $ref: '#/definitions/apiModels.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apiModels.AuthTokensResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apiModels.UnauthorizedError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Refresh auth tokens
+      tags:
+      - Auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Creates a user account and returns auth tokens with the created
+        user.
+      parameters:
+      - description: Registration payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/apiModels.RegisterUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/apiModels.AuthResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/apiModels.ConflictError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Register a new user
+      tags:
+      - Auth
+  /auth/set-new-password:
+    post:
+      consumes:
+      - application/json
+      description: Resets a user's password using a valid reset token.
+      parameters:
+      - description: Reset password payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/apiModels.SetNewPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apiModels.APIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apiModels.NotFoundError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Set a new password
+      tags:
+      - Auth
+  /auth/verify-email:
+    post:
+      consumes:
+      - application/json
+      description: Verifies a user's email using a verification token.
+      parameters:
+      - description: Verification payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/apiModels.VerifyEmailRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apiModels.APIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apiModels.NotFoundError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Verify email address
+      tags:
+      - Auth
+  /items:
+    get:
+      description: Returns a paginated list of items that belong to the authenticated
+        user.
+      parameters:
+      - description: Bearer access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Items per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apiModels.PaginatedItemsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apiModels.UnauthorizedError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: List current user items
+      tags:
+      - Items
+    post:
+      consumes:
+      - application/json
+      description: Creates a new item for the authenticated user.
+      parameters:
+      - description: Bearer access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Create item payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/apiModels.CreateItemRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/apiModels.ItemResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apiModels.UnauthorizedError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Create item
+      tags:
+      - Items
+  /items/{item_id}:
+    delete:
+      description: Deletes an item owned by the authenticated user.
+      parameters:
+      - description: Bearer access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Item ID
+        in: path
+        name: item_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apiModels.UnauthorizedError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apiModels.NotFoundError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Delete item
+      tags:
+      - Items
+    get:
+      description: Returns a single item owned by the authenticated user.
+      parameters:
+      - description: Bearer access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Item ID
+        in: path
+        name: item_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apiModels.ItemResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apiModels.UnauthorizedError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apiModels.NotFoundError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Get item by ID
+      tags:
+      - Items
+    patch:
+      consumes:
+      - application/json
+      description: Updates an item owned by the authenticated user.
+      parameters:
+      - description: Bearer access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Item ID
+        in: path
+        name: item_id
+        required: true
+        type: string
+      - description: Update item payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/apiModels.UpdateItemRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apiModels.ItemResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apiModels.UnauthorizedError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apiModels.NotFoundError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Update item
+      tags:
+      - Items
+  /items/{item_id}/image:
+    delete:
+      description: Removes the current image from an item owned by the authenticated
+        user.
+      parameters:
+      - description: Bearer access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Item ID
+        in: path
+        name: item_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apiModels.UnauthorizedError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apiModels.NotFoundError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Remove item image
+      tags:
+      - Items
+    put:
+      consumes:
+      - multipart/form-data
+      description: Uploads and sets a new image for an item owned by the authenticated
+        user.
+      parameters:
+      - description: Bearer access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Item ID
+        in: path
+        name: item_id
+        required: true
+        type: string
+      - description: Item image
+        in: formData
+        name: image
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apiModels.UnauthorizedError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apiModels.NotFoundError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Update item image
+      tags:
+      - Items
+  /users/me:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes the authenticated user's account after password verification.
+      parameters:
+      - description: Bearer access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Delete account payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/apiModels.DeleteAccountRequest'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apiModels.UnauthorizedError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/apiModels.ForbiddenError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apiModels.NotFoundError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Delete current user account
+      tags:
+      - Users
+    get:
+      description: Returns the currently authenticated user's profile.
+      parameters:
+      - description: Bearer access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apiModels.UserResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apiModels.UnauthorizedError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apiModels.NotFoundError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Get current user
+      tags:
+      - Users
+    patch:
+      consumes:
+      - application/json
+      description: Updates the currently authenticated user's profile fields.
+      parameters:
+      - description: Bearer access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Profile update payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/apiModels.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apiModels.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apiModels.UnauthorizedError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apiModels.NotFoundError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/apiModels.ConflictError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Update current user
+      tags:
+      - Users
+  /users/me/avatar:
+    delete:
+      description: Removes the current avatar from the authenticated user's profile.
+      parameters:
+      - description: Bearer access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apiModels.UnauthorizedError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apiModels.NotFoundError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Delete current user avatar
+      tags:
+      - Users
+    put:
+      consumes:
+      - multipart/form-data
+      description: Uploads and sets a new avatar for the authenticated user.
+      parameters:
+      - description: Bearer access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Avatar image
+        in: formData
+        name: avatar
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apiModels.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apiModels.UnauthorizedError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apiModels.NotFoundError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Update current user avatar
+      tags:
+      - Users
+  /users/me/update-password:
+    patch:
+      consumes:
+      - application/json
+      description: Changes the authenticated user's password after verifying the current
+        password.
+      parameters:
+      - description: Bearer access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Change password payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/apiModels.ChangePasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apiModels.APIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apiModels.BadRequestError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apiModels.UnauthorizedError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/apiModels.ForbiddenError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apiModels.NotFoundError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apiModels.APIError'
+      summary: Change current user password
+      tags:
+      - Users
+securityDefinitions:
+  BearerAuth:
+    description: Enter token as "Bearer <access_token>"
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

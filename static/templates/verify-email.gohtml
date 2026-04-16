@@ -1,0 +1,35 @@
+{{define "verify-email"}}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title data-i18n="page.verifyEmail.title">Email Verification</title>
+        {{template "head" .}}
+    </head>
+    <body class="page-status" data-page="verify-email">
+    {{template "preferences" .}}
+    {{template "header-bar" .}}
+
+    <main class="page-shell page-shell-centered">
+        <section class="status-card">
+            {{if .HasResult}}
+                <span class="status-chip {{if .Success}}status-chip-success{{else}}status-chip-error{{end}}">
+                {{if .Success}}<span data-i18n="verify.success">Success</span>{{else}}<span data-i18n="verify.error">Error</span>{{end}}
+            </span>
+            {{end}}
+            <h1>{{.Title}}</h1>
+            <p>{{.Message}}</p>
+
+            {{if and .Token (not .Success)}}
+                <form id="verify-email-form" class="stack-form panel-separator" method="POST" action="/verify-email">
+                    <h3 data-i18n="verify.manual">Manual verification</h3>
+                    <input name="token" type="hidden" value="{{.Token}}">
+                    <button class="action-btn" type="submit" data-i18n="verify.submit">Verify Email</button>
+                </form>
+            {{end}}
+
+            <button onclick="goHome()" class="action-btn" type="button" data-i18n="verify.goHome">Go Home</button>
+        </section>
+    </main>
+    </body>
+    </html>
+{{end}}

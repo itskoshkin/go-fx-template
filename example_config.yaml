@@ -1,0 +1,63 @@
+app: # go-fx-template
+  log:
+    level: "INFO" # "DEBUG", "INFO", "WARN" or "ERROR"
+    log_format: "text" # "text" or "json"
+    log2console: true # Write logs to stdout/stderr
+    log2file: true # Write logs to a file
+    file_path: "./application.log" # Log file path when file logging is enabled
+    file_mode: "rotate" # "overwrite", "append" or "rotate"
+    old_logs_folder: "logs/" # Folder for archived logs when file_mode="rotate"
+  api:
+    gin_release_mode: true # Hide Gin debug logs
+    host: "0.0.0.0" # bind address; "localhost" for local-only access or "0.0.0.0" to listen all interfaces
+    port: 8080 # listening port
+    base_path: "/api/v1" # URL prefix where REST API routes are mounted; Don't forget to change in static/scripts/api.js
+    shutdown_timeout: "5s" # time to wait for graceful HTTP shutdown
+    auth:
+      jwt_issuer: "Go Fx Template"
+      jwt_audience: "fx-template.go"
+      access_token_secret: "your-super-secret-access-key" # use `openssl rand -hex 32` to generate
+      refresh_token_secret: "your-super-secret-refresh-key" # use `openssl rand -hex 32` to generate
+      access_token_ttl: "24h"
+      refresh_token_ttl: "168h" # 7 days
+      pwd_reset_token_ttl: "1h"
+      email_verify_token_ttl: "24h"
+      require_email_for_user: false # Require email during user registration
+      require_email_verification: false # Disallow login for users with unverified email
+    web_app:
+      domain: "https://fx-template.go" # Public web-app URL used in email links and redirects
+  database:
+    connection_timeout: "5s" # Time to wait for initial DB ping during startup
+    conn:
+      host: "localhost"
+      port: 5432
+      user: "username"
+      password: "..."
+      database_name: "go-fx-template"
+      ssl_mode: "disable" # "disable", "require", "verify-ca" or "verify-full"
+    pool:
+      max_open_conns: 10 # Maximum number of open DB connections
+      max_idle_conns: 2 # Maximum number of idle DB connections kept in the pool
+      conn_max_lifetime: "30m" # Maximum total lifetime of one DB connection
+      conn_max_idle_time: "5m" # Maximum idle time before a DB connection is recycled
+    auto_migrate: true # Let GORM create tables automatically
+  redis:
+    host: "localhost"
+    port: 6379
+    password: "..."
+    database: 0
+  minio:
+    conn:
+      endpoint: "s3.fx-template.go"
+      access_key_id: "..."
+      access_key_secret: "..."
+      use_ssl: true
+      bucket_name: "go-fx-template"
+    set_bucket_public_policy: true # Make the bucket publicly readable on startup
+    max_upload_size_mb: 10
+  email:
+    host: "smtp.gmail.com"
+    port: "587"
+    user: "your@gmail.com" # Address with +tag (username+servicename@gmail.com) can also be used, but first add it at https://mail.google.com/mail/u/0/#settings/accounts in section "Send mail as"
+    password: "..." # Google app password from https://myaccount.google.com/apppasswords, see https://support.google.com/mail/answer/185833?hl=en for more info
+    from: "Go Fx Template <username+servicename@gmail.com>" # Header "From" shown in outgoing emails

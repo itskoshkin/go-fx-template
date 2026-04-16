@@ -1,0 +1,81 @@
+.page-status { /* Style the body of compact status-oriented pages. */
+    display: block; /* Keep status pages in normal flow under the sticky header. */
+}
+
+
+.status-card { /* Style compact cards used by verify/reset/error pages. */
+    width: min(100%, 560px); /* Keep the card narrow enough for status messaging. */
+    padding: 32px 28px; /* Add generous interior spacing around the content. */
+    border: 1px solid var(--color-border); /* Outline the card with the shared subtle border. */
+    border-radius: var(--radius-md); /* Use a medium radius for the card shell. */
+    background: var(--color-surface); /* Place the card on the standard elevated surface. */
+    box-shadow: var(--shadow-soft); /* Lift the card slightly off the page background. */
+    display: flex; /* Use flexbox for the internal content stack. */
+    flex-direction: column; /* Stack all card children vertically. */
+    gap: 18px; /* Keep even breathing room between card elements. */
+}
+
+
+.status-card-title-strong { /* Reuse the stronger modal-title size for key standalone account actions. */
+    font-size: 1.34rem; /* Match the stronger Account title size from the profile modal. */
+    line-height: 1.15; /* Keep the standalone title compact and controlled. */
+}
+
+
+.status-form { /* Retune standalone forms on status pages to use a larger section rhythm. */
+    gap: 18px; /* Match the outer card rhythm between fields and action rows. */
+}
+
+
+.status-form-field-group { /* Keep each status-page label and input paired together. */
+    display: flex; /* Use flexbox for label and input pairing. */
+    flex-direction: column; /* Stack the label above its field. */
+    gap: 10px; /* Preserve the shared label-to-field spacing. */
+}
+
+
+.status-form-actions { /* Spread standalone page actions across the full card width. */
+    width: 100%; /* Let the action row span the available card width. */
+    justify-content: space-between; /* Keep Back pinned to the far right edge. */
+    margin-top: 8px; /* Compensate for the missing label above the buttons so the visual gap matches the fields. */
+}
+
+
+.status-form-back-btn { /* Keep the Back button aligned to the far edge even when the primary action is narrow. */
+    margin-left: auto; /* Push the Back button to the right side of the action row. */
+}
+
+
+.error-btn-home { /* Style the icon-only home button on the error page. */
+    width: 56px; /* Give the icon button a square hit area. */
+    height: 56px; /* Match width and height for a square control. */
+    border: 1px solid var(--color-border-strong); /* Outline the icon button clearly. */
+    background: transparent; /* Keep the button surface transparent by default. */
+    display: inline-flex; /* Use flexbox to center the icon precisely. */
+    align-items: center; /* Center the icon vertically. */
+    justify-content: center; /* Center the icon horizontally. */
+}
+
+
+.error-btn-home:hover { /* Style the icon-only home button on hover. */
+    border-color: var(--color-text); /* Strengthen the outline on hover. */
+    background: rgba(255, 255, 255, 0.05); /* Add a faint fill on hover. */
+}
+
+
+.btn-icon { /* Style the icon image inside the error home button. */
+    width: 24px; /* Keep the home icon compact. */
+    height: 24px; /* Keep the icon square. */
+    display: block; /* Remove inline image baseline artifacts. */
+    color: inherit; /* Let the home icon follow the current button color. */
+}
+
+
+@media (max-width: 640px) {
+    /* Retune status cards on small screens. */
+    .status-card { /* Target compact status cards on phones. */
+        padding: 24px 20px; /* Reduce card padding for narrower screens. */
+    }
+
+}
+

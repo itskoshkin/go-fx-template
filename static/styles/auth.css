@@ -1,0 +1,123 @@
+.page-auth { /* Style the body of the unified auth page. */
+    display: block; /* Keep auth pages in normal document flow. */
+}
+
+
+.auth-layout { /* Provide the layout shell for auth cards. */
+    display: grid; /* Use grid for the auth page shell. */
+    gap: 24px; /* Leave visible space around the auth card. */
+}
+
+
+.auth-layout-single { /* Center one standalone auth card without any side content. */
+    grid-template-columns: minmax(320px, 560px); /* Keep the auth window narrow and modal-like. */
+    justify-content: center; /* Center the auth card horizontally. */
+}
+
+
+.auth-card { /* Specialize the shared status card for auth forms. */
+    width: 100%; /* Let the auth card fill the available grid width. */
+}
+
+
+.auth-card-standalone { /* Tighten the standalone auth card into a compact window. */
+    padding: 28px; /* Keep the bottom gap equal to the horizontal card padding. */
+    gap: 18px; /* Use one consistent vertical rhythm between the switcher and the form. */
+}
+
+
+.auth-card-standalone > .stack-form { /* Keep the top-level auth form blocks on the same vertical rhythm. */
+    gap: 18px; /* Match the spacing between the switcher, fields, and action row. */
+}
+
+
+.auth-fields { /* Group auth fields into one vertical stack with consistent spacing between them. */
+    display: flex; /* Use flexbox to stack field groups vertically. */
+    flex-direction: column; /* Keep every field group on its own row. */
+    gap: 18px; /* Match the form rhythm between every major field block. */
+}
+
+
+.auth-field-group { /* Keep one label/input pair grouped together. */
+    display: flex; /* Use flexbox to stack the label above its control. */
+    flex-direction: column; /* Keep the label and input vertical. */
+    gap: 10px; /* Leave a compact gap between the label and its control. */
+}
+
+
+.auth-switcher { /* Layout the login/register segmented control. */
+    display: grid; /* Use grid so both segments share width evenly. */
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* Create one equal-width column per segment. */
+    gap: 8px; /* Separate the two segments slightly. */
+    padding: 6px; /* Add internal spacing around the segmented control shell. */
+    border: 1px solid var(--color-border); /* Outline the segmented control shell. */
+    border-radius: 999px; /* Make the segmented control fully rounded. */
+    background: var(--color-surface-soft); /* Lift the control slightly above the card background. */
+}
+
+
+.tab-btn { /* Style each segment button. */
+    appearance: none; /* Remove native button styling. */
+    -webkit-appearance: none; /* Remove Safari-native button styling. */
+    border: 1px solid transparent; /* Reserve border space for the active segment state. */
+    border-radius: 999px; /* Match the rounded segmented-control shell. */
+    background: transparent; /* Keep inactive segments transparent. */
+    color: var(--color-text-muted); /* Lower contrast on inactive segments. */
+    cursor: pointer; /* Show a pointer cursor for interactivity. */
+    padding: 12px 16px; /* Give each segment a comfortable hit area. */
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease; /* Animate state changes lightly. */
+}
+
+
+.tab-btn.is-active { /* Style the currently active segment. */
+    border-color: var(--color-text); /* Highlight the active segment with a strong outline. */
+    background: var(--color-text); /* Fill the active segment white. */
+    color: var(--color-bg); /* Switch active segment text to black for contrast. */
+}
+
+
+.tab-btn:focus-visible { /* Style auth segments for keyboard focus. */
+    outline: 2px solid var(--color-focus); /* Draw a visible focus ring. */
+    outline-offset: 3px; /* Separate the focus ring from the segment edge. */
+}
+
+
+.auth-form-title { /* Style the main auth form heading. */
+    display: none; /* Hide the large auth heading because the segmented control already labels the form. */
+}
+
+
+.auth-inline-actions { /* Keep inline auth actions grouped together. */
+    align-items: stretch; /* Let all auth action buttons align evenly. */
+    margin-top: 30px; /* Compensate for the missing label block so the visual gap matches field-to-field spacing. */
+}
+
+
+.auth-inline-actions-single { /* Keep one-button auth rows aligned to the left without extra stretching. */
+    justify-content: flex-start; /* Leave the standalone register action on the leading edge. */
+}
+
+
+#toggle-forgot-password-btn { /* Push the forgot-password trigger to the far edge of the login action row. */
+    margin-left: auto; /* Separate the secondary forgot-password action from the primary submit button. */
+}
+
+
+#login-status:empty, /* Collapse the login status area when there is no message. */
+#register-status:empty { /* Collapse the register status area when there is no message. */
+    display: none; /* Remove empty status rows so the bottom padding stays visually even. */
+}
+
+
+@media (max-width: 640px) {
+    /* Retune the auth window on phones. */
+    .auth-layout-single { /* Target the standalone auth layout. */
+        grid-template-columns: 1fr; /* Let the auth card fill the available width on phones. */
+    }
+
+    .auth-card-standalone { /* Retune standalone auth-card padding on phones. */
+        padding: 20px; /* Keep the bottom gap equal to the smaller horizontal padding on narrow screens. */
+    }
+
+}
+
