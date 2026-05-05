@@ -9,6 +9,7 @@ app: # go-fx-template
     old_logs_folder: "logs/" # Folder for archived logs when file_mode="rotate"
   api:
     gin_release_mode: true # Hide Gin debug logs
+    trusted_proxies: [] # IPs/CIDRs of trusted reverse proxies allowed to provide X-Forwarded-For/X-Real-IP; ["127.0.0.1", "::1", "172.18.0.0/16"] for Nginx and Docker
     host: "0.0.0.0" # bind address; "localhost" for local-only access or "0.0.0.0" to listen all interfaces
     port: 8080 # listening port
     base_path: "/api/v1" # URL prefix where REST API routes are mounted; Don't forget to change in static/scripts/api.js

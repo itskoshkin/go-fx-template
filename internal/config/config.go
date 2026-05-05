@@ -33,6 +33,7 @@ const (
 	LogFilesFolder = "app.log.old_logs_folder" // string (path)
 
 	GinReleaseMode            = "app.api.gin_release_mode"                // bool
+	TrustedProxies            = "app.api.trusted_proxies"                 // []string
 	ApiHost                   = "app.api.host"                            // string
 	ApiPort                   = "app.api.port"                            // int
 	ApiBasePath               = "app.api.base_path"                       // string
@@ -111,7 +112,7 @@ func getEnv() {
 	viper.AutomaticEnv()
 	var binds = map[string]string{
 		/* Logger   */ LogLevel: "LOG_LEVEL", LogFormat: "LOG_FORMAT", LogToConsole: "LOG_TO_CONSOLE", LogToFile: "LOG_TO_FILE", LogFilePath: "LOG_FILE_PATH", LogFileMode: "LOG_FILE_MODE", LogFilesFolder: "LOG_FILES_FOLDER",
-		/* API      */ GinReleaseMode: "GIN_RELEASE_MODE", ApiHost: "APP_HOST", ApiPort: "APP_PORT", ApiBasePath: "API_BASE_PATH", ApiShutdownTimeout: "WEB_SERVER_SHUTDOWN_TIMEOUT", WebAppDomain: "WEB_APP_DOMAIN",
+		/* API      */ GinReleaseMode: "GIN_RELEASE_MODE", TrustedProxies: "TRUSTED_PROXIES", ApiHost: "APP_HOST", ApiPort: "APP_PORT", ApiBasePath: "API_BASE_PATH", ApiShutdownTimeout: "WEB_SERVER_SHUTDOWN_TIMEOUT", WebAppDomain: "WEB_APP_DOMAIN",
 		/* JWT      */ JwtIssuer: "JWT_ISSUER", JwtAudience: "JWT_AUDIENCE", AccessTokenSecret: "JWT_ACCESS_TOKEN_SECRET", RefreshTokenSecret: "JWT_REFRESH_TOKEN_SECRET", AccessTokenTTL: "JWT_ACCESS_TOKEN_TTL", RefreshTokenTTL: "JWT_REFRESH_TOKEN_TTL", PasswordResetTokenTTL: "PWD_RESET_TOKEN_TTL", EmailVerificationTokenTTL: "EMAIL_VERIFY_TOKEN_TTL", RequireEmailForUser: "REQUIRE_EMAIL_FOR_USER", RequireEmailVerification: "REQUIRE_EMAIL_VERIFICATION",
 		/* Database */ GormStartupLogs: "GORM_STARTUP_LOGS", GormLogLevel: "GORM_LOG_LEVEL", DatabaseConnectionTimeout: "DATABASE_CONNECTION_TIMEOUT", DatabaseHost: "DATABASE_HOST", DatabasePort: "DATABASE_PORT", DatabaseUser: "DATABASE_USER", DatabasePassword: "DATABASE_PASSWORD", DatabaseName: "DATABASE_NAME", DatabaseSslMode: "DATABASE_SSL_MODE", DatabaseMaxOpenConn: "DATABASE_MAX_OPEN_CONNS", DatabaseMaxIdleConn: "DATABASE_MAX_IDLE_CONNS", DatabaseConnMaxLifetime: "DATABASE_CONN_MAX_LIFETIME", DatabaseConnMaxIdleTime: "DATABASE_CONN_MAX_IDLE_TIME", DatabaseAutoMigrate: "DATABASE_AUTO_MIGRATE",
 		/* Redis    */ RedisHost: "REDIS_HOST", RedisPort: "REDIS_PORT", RedisPassword: "REDIS_PASSWORD", RedisDB: "REDIS_DB",
