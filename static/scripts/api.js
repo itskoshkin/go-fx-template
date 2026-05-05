@@ -24,6 +24,24 @@ function goTo(path) { /* Navigate to an arbitrary relative route. */
     window.location.href = path; /* Replace the current location with the provided path. */
 }
 
+document.addEventListener('click', (event) => { /* Handle shared navigation actions without inline onclick attributes. */
+    const actionTarget = event.target.closest('[data-action]'); /* Find the nearest declarative action target. */
+    if (!actionTarget) { /* Ignore clicks outside declarative action controls. */
+        return; /* Stop before reading action metadata. */
+    }
+
+    switch (actionTarget.dataset.action) { /* Route the declared action to the matching navigation helper. */
+        case 'go-home':
+            goHome(); /* Navigate to the dashboard route. */
+            break; /* Stop after handling the home action. */
+        case 'go-home-profile':
+            goHomeToProfile(); /* Navigate to the dashboard and request the profile modal. */
+            break; /* Stop after handling the profile-home action. */
+        default:
+            break; /* Ignore unknown declarative actions. */
+    }
+});
+
 function getPageRoot() { /* Return the document body for data attribute lookups. */
     return document.body; /* Use the body element as the single source of page metadata. */
 }
