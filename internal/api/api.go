@@ -69,6 +69,7 @@ func (api *API) registerMiddlewares() {
 	api.engine.Use(middlewares.RequestID())
 	api.engine.Use(ginutils.LoggingMiddlewares()...)
 	api.engine.Use(middlewares.CORS())
+	api.engine.Use(middlewares.SecurityHeaders())
 }
 
 func (api *API) registerRoutes() {
