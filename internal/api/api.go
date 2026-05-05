@@ -44,7 +44,9 @@ func NewEngine() *gin.Engine {
 	}
 
 	engine := gin.New()
-	_ = engine.SetTrustedProxies(nil) // Can nil produce an error? Or can a robot write a symphony?
+	if err := engine.SetTrustedProxies(viper.GetStringSlice(config.TrustedProxies)); err != nil {
+		logger.Fatalf("Failed to set trusted proxies: %v", err)
+	}
 	engine.HandleMethodNotAllowed = true
 
 	return engine

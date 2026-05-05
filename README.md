@@ -80,6 +80,7 @@ Environment variables take precedence over file values. Full examples and commen
 | `app.api.port`                            | `APP_PORT`                    | `8080`             | Listening port                                  |
 | `app.api.base_path`                       | `API_BASE_PATH`               | `/api/v1`          | REST API prefix                                 |
 | `app.api.gin_release_mode`                | `GIN_RELEASE_MODE`            | `true`             | Hide Gin debug output                           |
+| `app.api.trusted_proxies`                 | `TRUSTED_PROXIES`             | `[]`               | Trusted reverse proxy IPs/CIDRs                 |
 | `app.api.shutdown_timeout`                | `WEB_SERVER_SHUTDOWN_TIMEOUT` | `5s`               | Graceful shutdown timeout                       |
 | `app.api.web_app.domain`                  | —                             | —                  | Public web app URL used in emails and redirects |
 | `app.api.auth.jwt_issuer`                 | `JWT_ISSUER`                  | `go-fx-template`   | JWT issuer                                      |
@@ -92,6 +93,8 @@ Environment variables take precedence over file values. Full examples and commen
 | `app.api.auth.email_verify_token_ttl`     | `EMAIL_VERIFY_TOKEN_TTL`      | `24h`              | Email verification token lifetime               |
 | `app.api.auth.require_email_for_user`     | —                             | `false`            | Require email during registration               |
 | `app.api.auth.require_email_verification` | —                             | `false`            | Block login until email is verified             |
+
+Use YAML array syntax for `app.api.trusted_proxies`, for example `["127.0.0.1", "::1"]`. When setting it via `TRUSTED_PROXIES`, use a space-separated value such as `127.0.0.1 ::1`.
 
 ### Logger env vars
 
