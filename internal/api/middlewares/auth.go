@@ -19,9 +19,14 @@ type AuthService interface {
 	ValidateAccessToken(ctx context.Context, token string) (uuid.UUID, error)
 }
 
-type Middlewares struct{ authService AuthService }
+type Middlewares struct {
+	authService AuthService
+	limiter     *authRateLimiter
+}
 
-func newMiddlewares(as AuthService) *Middlewares { return &Middlewares{authService: as} }
+func newMiddlewares(as AuthService) *Middlewares {
+	return &Middlewares{authService: as, limiter: newAuthRateLimiter()}
+}
 
 func NewMiddlewares(as AuthService) *Middlewares { return newMiddlewares(as) }
 

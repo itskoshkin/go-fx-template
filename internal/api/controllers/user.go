@@ -62,11 +62,11 @@ func (ctrl *UserController) RegisterRoutes() {
 	{
 		authRoutes.POST("/register", ctrl.Register)
 		authRoutes.POST("/verify-email", ctrl.VerifyEmail)
-		authRoutes.POST("/login", ctrl.LogIn)
-		authRoutes.POST("/refresh", ctrl.RefreshTokens)
+		authRoutes.POST("/login", ctrl.mw.RateLimit(middlewares.LoginRateLimitPolicy), ctrl.LogIn)
+		authRoutes.POST("/refresh", ctrl.mw.RateLimit(middlewares.RefreshRateLimitPolicy), ctrl.RefreshTokens)
 		authRoutes.POST("/logout", ctrl.mw.AuthMiddleware(), ctrl.LogOut)
 
-		authRoutes.POST("/forgot-password", ctrl.ForgotPassword)
+		authRoutes.POST("/forgot-password", ctrl.mw.RateLimit(middlewares.ForgotPasswordRateLimitPolicy), ctrl.ForgotPassword)
 		authRoutes.POST("/set-new-password", ctrl.SetNewPassword)
 	}
 	userRoutes := basePath.Group("/users")
